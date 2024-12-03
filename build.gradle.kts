@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-group = "br.edu.ifsc.hospital"
+group = "com.luisgmr.ifsc.hospital"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -26,7 +26,7 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "AppKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)

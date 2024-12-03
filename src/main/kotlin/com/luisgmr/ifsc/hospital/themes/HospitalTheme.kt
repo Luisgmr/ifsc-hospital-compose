@@ -15,7 +15,7 @@ import androidx.compose.ui.text.platform.Font
 import androidx.compose.ui.unit.sp
 
 private val LightColorPalette = lightColors(
-    primary = Color(0xff245379),
+    primary = Color(0xff377393),
     primaryVariant = Color(0xFF3700B3),
     secondary = Color(0xFF03DAC6),
     background = Color(0xffeeeeee),
