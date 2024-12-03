@@ -64,7 +64,6 @@ fun App() {
                             icon = { Icon(Icons.Filled.Search, contentDescription = "Buscas") },
                             label = { Text("Buscas") }
                         )
-                        // Adicione outros itens de navegação conforme necessário
                     }
                 }
 
