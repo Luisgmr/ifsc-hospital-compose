@@ -18,7 +18,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
-
+//
 enum class Screen {
     HOME, GERENCIAR, BUSCAS, USUARIO
 }
