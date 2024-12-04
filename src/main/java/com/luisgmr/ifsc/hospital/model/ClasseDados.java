@@ -7,6 +7,7 @@ public class ClasseDados {
 
     private static ClasseDados instance;
 
+    public List<Usuario> usuarios = new ArrayList<>();
     public List<Paciente> pacientes = new ArrayList<>();
     public List<Acompanhante> acompanhantes = new ArrayList<>();
     public List<Ala> alas = new ArrayList<>();

@@ -7,6 +7,10 @@ public class Farmaceutico extends Pessoa {
 	private String login;
 	private String nomeSocial;
 
+	public Farmaceutico() {
+		super();
+	}
+
 	public Farmaceutico(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String cfr, String senha, String login, String nomeSocial) {
 		super(id, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
 		this.cfr = cfr;

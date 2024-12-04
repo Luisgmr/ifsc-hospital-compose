@@ -18,6 +18,8 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
+import com.luisgmr.ifsc.hospital.controller.RegisterUserController
+import com.luisgmr.ifsc.hospital.screens.RegisterUserScreen
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import java.awt.Dimension
 
@@ -72,7 +74,7 @@ fun App() {
 
 
                 when (currentScreen) {
-                    Screen.HOME -> HomeScreen()
+                    Screen.HOME -> RegisterUserScreen(RegisterUserController())
                     Screen.GERENCIAR -> GerenciarScreen()
                     Screen.BUSCAS -> ConsultasScreen()
                     Screen.USUARIO -> UsuarioScreen()
