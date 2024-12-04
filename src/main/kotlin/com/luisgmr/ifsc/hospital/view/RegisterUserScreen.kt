@@ -141,21 +141,24 @@ fun RegisterUserScreen(controller: RegisterUserController) {
                             val medico = Medico()
                             medico.nomeSocial = nome
                             medico.login = login
-                            medico.crm = senha
+                            medico.senha = senha
+                            medico.crm = crm
                             medico
                         }
                         UserType.Enfermeiro -> {
                             val enfermeiro = Enfermeiro()
                             enfermeiro.nomeSocial = nome
                             enfermeiro.login = login
-                            enfermeiro.cre = senha
+                            enfermeiro.senha = senha
+                            enfermeiro.cre = cre
                             enfermeiro
                         }
                         UserType.Farmaceutico -> {
                             val farmaceutico = Farmaceutico()
                             farmaceutico.nomeSocial = nome
                             farmaceutico.login = login
-                            farmaceutico.cfr = senha
+                            farmaceutico.senha = senha
+                            farmaceutico.cfr = cfr
                             farmaceutico
                         }
                     }
