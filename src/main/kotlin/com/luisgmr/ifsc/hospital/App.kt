@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import java.awt.Dimension
@@ -94,6 +95,7 @@ fun main() = application {
 @Composable
 fun HomeScreen() {
     Text("Bem-vindo à Home!")
+    ConnectDatabaseButton()
 }
 
 @Composable
