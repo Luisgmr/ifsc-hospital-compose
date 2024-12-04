@@ -72,7 +72,6 @@ fun HospitalNavigationRailItem(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 icon()
-                label()
             }
         }
     }
