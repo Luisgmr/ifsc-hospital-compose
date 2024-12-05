@@ -10,9 +10,6 @@ group = "com.luisgmr.ifsc.hospital"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    mavenCentral()
-    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    google()
 }
 
 dependencies {
@@ -23,7 +20,8 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation("mysql:mysql-connector-java:8.0.27")
     implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
-
+    implementation("com.seanproctor:data-table-material3:latest.release")
+    implementation("com.seanproctor:data-table:latest.release")
 }
 
 compose.desktop {
