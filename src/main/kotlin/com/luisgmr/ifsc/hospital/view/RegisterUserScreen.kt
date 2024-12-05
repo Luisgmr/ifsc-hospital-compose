@@ -8,19 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
-import com.luisgmr.ifsc.hospital.model.Enfermeiro
-import com.luisgmr.ifsc.hospital.model.Farmaceutico
-import com.luisgmr.ifsc.hospital.model.Medico
-import com.luisgmr.ifsc.hospital.model.Usuario
-
-enum class UserType {
-    Usuario, Medico, Enfermeiro, Farmaceutico
-}
+import com.luisgmr.ifsc.hospital.enums.UserType
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RegisterUserScreen(controller: RegisterUserController) {
-    var userType by remember { mutableStateOf(UserType.Usuario) }
+    var userType by remember { mutableStateOf(UserType.USUARIO) }
     var expanded by remember { mutableStateOf(false) }
     var nome by remember { mutableStateOf("") }
     var login by remember { mutableStateOf("") }
@@ -99,7 +92,7 @@ fun RegisterUserScreen(controller: RegisterUserController) {
 
             // Campos Específicos
             when (userType) {
-                UserType.Medico -> {
+                UserType.MEDICO -> {
                     OutlinedTextField(
                         value = crm,
                         onValueChange = { crm = it },
@@ -107,7 +100,7 @@ fun RegisterUserScreen(controller: RegisterUserController) {
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                UserType.Enfermeiro -> {
+                UserType.ENFERMEIRO -> {
                     OutlinedTextField(
                         value = cre,
                         onValueChange = { cre = it },
@@ -115,7 +108,7 @@ fun RegisterUserScreen(controller: RegisterUserController) {
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                UserType.Farmaceutico -> {
+                UserType.FARMACEUTICO -> {
                     OutlinedTextField(
                         value = cfr,
                         onValueChange = { cfr = it },
@@ -128,81 +121,12 @@ fun RegisterUserScreen(controller: RegisterUserController) {
 
             Button(
                 onClick = {
-                    val user = when (userType) {
-                        UserType.Usuario ->  {
-                            val usuario = Usuario()
-                            usuario.nome = nome
-                            usuario.nomeSocial = nome
-                            usuario.login = login
-                            usuario.senha = senha
-                            usuario
-                        }
-                        UserType.Medico -> {
-                            val medico = Medico()
-                            medico.nomeSocial = nome
-                            medico.login = login
-                            medico.senha = senha
-                            medico.crm = crm
-                            medico
-                        }
-                        UserType.Enfermeiro -> {
-                            val enfermeiro = Enfermeiro()
-                            enfermeiro.nomeSocial = nome
-                            enfermeiro.login = login
-                            enfermeiro.senha = senha
-                            enfermeiro.cre = cre
-                            enfermeiro
-                        }
-                        UserType.Farmaceutico -> {
-                            val farmaceutico = Farmaceutico()
-                            farmaceutico.nomeSocial = nome
-                            farmaceutico.login = login
-                            farmaceutico.senha = senha
-                            farmaceutico.cfr = cfr
-                            farmaceutico
-                        }
-                    }
-                    val success = controller.registerUser(user)
-                    if (success) {
-                        println("Usuário registrado com sucesso!")
-                    } else {
-                        println("Erro ao registrar usuário!")
-                    }
+                    controller.registerUser(userType, nome, login, senha, crm, cre, cfr)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text("Registrar")
             }
-        }
-    }
-}
-
-
-fun registerUser(
-    userType: UserType,
-    nome: String,
-    login: String,
-    senha: String,
-    crm: String = "",
-    cre: String = "",
-    cfr: String = ""
-) {
-    when (userType) {
-        UserType.Usuario -> {
-            println("Registrando usuário: $nome, Login: $login")
-            // Chamada para inserir no banco
-        }
-        UserType.Medico -> {
-            println("Registrando médico: $nome, CRM: $crm, Login: $login")
-            // Chamada para inserir no banco
-        }
-        UserType.Enfermeiro -> {
-            println("Registrando enfermeiro: $nome, CRE: $cre, Login: $login")
-            // Chamada para inserir no banco
-        }
-        UserType.Farmaceutico -> {
-            println("Registrando farmacêutico: $nome, CFR: $cfr, Login: $login")
-            // Chamada para inserir no banco
         }
     }
 }

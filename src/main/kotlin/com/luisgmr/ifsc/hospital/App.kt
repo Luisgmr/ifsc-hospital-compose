@@ -18,6 +18,7 @@ import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
 import com.luisgmr.ifsc.hospital.screens.RegisterUserScreen
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
+import com.luisgmr.ifsc.hospital.view.CadastrosScreen
 import java.awt.Dimension
 
 //
@@ -87,7 +88,7 @@ fun App() {
                 when (currentScreen) {
                     Screen.HOME -> HomeScreen()
                     Screen.REGISTRO_USUARIO -> RegisterUserScreen(RegisterUserController())
-                    Screen.GERENCIAR -> GerenciarScreen()
+                    Screen.GERENCIAR -> CadastrosScreen()
                     Screen.BUSCAS -> ConsultasScreen()
                     Screen.USUARIO -> UsuarioScreen()
                 }
@@ -112,10 +113,6 @@ fun HomeScreen() {
     ConnectDatabaseButton()
 }
 
-@Composable
-fun GerenciarScreen() {
-    Text("Gerencie pacientes, medicamentos, etc.")
-}
 
 @Composable
 fun ConsultasScreen() {
