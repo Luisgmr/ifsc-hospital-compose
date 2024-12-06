@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -21,16 +22,25 @@ import com.luisgmr.ifsc.hospital.view.PessoasScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.*
+import navcontroller.NavController
+import navcontroller.NavigationHost
+import navcontroller.composable
+import navcontroller.rememberNavController
 import java.awt.Dimension
 
 
 enum class Screen {
-    HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO
+    HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
+    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS
 }
 
 @Composable
 fun App() {
-    var currentScreen by remember { mutableStateOf(Screen.HOME) }
+    val screens = Screen.values().toList()
+    val navController by rememberNavController(Screen.HOME.name)
+    val currentScreen by remember {
+        navController.currentScreen
+    }
 
     HospitalTheme {
         Scaffold(
@@ -59,27 +69,27 @@ fun App() {
                                 verticalArrangement = Arrangement.spacedBy(8.dp),
                             ) {
                                 HospitalNavigationRailItem(
-                                    selected = currentScreen == Screen.HOME,
-                                    onClick = { currentScreen = Screen.HOME },
+                                    selected = false,
+                                    onClick = { navController.navigate(Screen.HOME.name) },
                                     icon = { Icon(FontAwesomeIcons.Solid.AddressCard, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Home") }
                                 )
                                 HospitalNavigationRailItem(
-                                    selected = currentScreen == Screen.PESSOAS,
-                                    onClick = { currentScreen = Screen.PESSOAS },
+                                    selected = false,
+                                    onClick = { navController.navigate(Screen.PESSOAS.name) },
                                     icon = { Icon(FontAwesomeIcons.Solid.HospitalUser, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Pessoas") }
                                 )
                                 HospitalNavigationRailItem(
-                                    selected = currentScreen == Screen.BUSCAS,
-                                    onClick = { currentScreen = Screen.BUSCAS },
+                                    selected = false,
+                                    onClick = { navController.navigate(Screen.MEDICOS.name) },
                                     icon = { Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Buscas") }
                                 )
                             }
                             HospitalNavigationRailItem(
-                                selected = currentScreen == Screen.REGISTRO_USUARIO,
-                                onClick = { currentScreen = Screen.REGISTRO_USUARIO },
+                                selected = false,
+                                onClick = { navController.navigate(Screen.REGISTRO_USUARIO.name) },
                                 icon = { Icon(FontAwesomeIcons.Solid.AngleRight, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                 label = { Text("Registrar") }
                             )
@@ -87,13 +97,26 @@ fun App() {
                     }
                 }
 
-                when (currentScreen) {
-                    Screen.HOME -> HomeScreen()
-                    Screen.REGISTRO_USUARIO -> RegisterUserScreen(RegisterUserController())
-                    Screen.PESSOAS -> PessoasScreen()
-                    Screen.BUSCAS -> ConsultasScreen()
-                    Screen.USUARIO -> UsuarioScreen()
-                }
+                NavigationHost(navController = navController) {
+                    composable(Screen.HOME.name) { HomeScreen() }
+                    composable(Screen.REGISTRO_USUARIO.name) { RegisterUserScreen(RegisterUserController()) }
+                    composable(Screen.PESSOAS.name) {
+                        PessoasScreen(navController
+//                            onPacientesClick = { navController.navigate(Screen.PACIENTES.name) },
+//                            onMedicosClick = { navController.navigate(Screen.MEDICOS.name) },
+//                            onEnfermeirosClick = { navController.navigate(Screen.ENFERMEIROS.name) },
+//                            onFarmaceuticosClick = { navController.navigate(Screen.FARMACEUTICOS.name) },
+//                            onUsuariosClick = { navController.navigate(Screen.USUARIOS.name) }
+                        )
+                    }
+                    composable(Screen.PACIENTES.name) { PessoasCategoryScreen("Pacientes", onBack = { navController.navigateBack() }) }
+                    composable(Screen.MEDICOS.name) { PessoasCategoryScreen("Médicos", onBack = { navController.navigateBack() }) }
+                    composable(Screen.ENFERMEIROS.name) { PessoasCategoryScreen("Enfermeiros", onBack = { navController.navigateBack() }) }
+                    composable(Screen.FARMACEUTICOS.name) { PessoasCategoryScreen("Farmacêuticos", onBack = { navController.navigateBack() }) }
+                    composable(Screen.USUARIOS.name) { PessoasCategoryScreen("Usuários", onBack = { navController.navigateBack() }) }
+                }.build()
+
+
             }
         }
     }
@@ -104,8 +127,28 @@ fun main() = application {
         onCloseRequest = ::exitApplication,
         resizable = true
     ) {
-        this.window.minimumSize = Dimension(800, 600)
+        this.window.minimumSize = Dimension(1000, 750)
         App()
+    }
+}
+
+
+@Composable
+fun PessoasCategoryScreen(category: String, onBack: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onBack) {
+                Icon(Icons.Filled.ArrowBack, contentDescription = "Voltar")
+            }
+            Text(text = "Lista de $category", style = MaterialTheme.typography.h4)
+        }
+        Text("Aqui estará a lista de $category.")
     }
 }
 

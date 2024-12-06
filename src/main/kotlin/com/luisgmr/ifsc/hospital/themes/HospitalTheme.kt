@@ -73,7 +73,7 @@ val Typography = Typography(
     ),
     body2 = TextStyle(
         fontFamily = UbuntuFontFamily,
-        fontWeight = FontWeight.Light,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp
     ),
     button = TextStyle(
