@@ -14,7 +14,7 @@ import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.*
-import navcontroller.NavController
+import com.luisgmr.ifsc.hospital.navigation.NavController
 
 @Composable
 fun PessoasScreen(navController: NavController) {

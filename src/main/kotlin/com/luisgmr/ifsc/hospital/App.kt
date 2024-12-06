@@ -22,10 +22,9 @@ import com.luisgmr.ifsc.hospital.view.PessoasScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.*
-import navcontroller.NavController
-import navcontroller.NavigationHost
-import navcontroller.composable
-import navcontroller.rememberNavController
+import com.luisgmr.ifsc.hospital.navigation.NavigationHost
+import com.luisgmr.ifsc.hospital.navigation.composable
+import com.luisgmr.ifsc.hospital.navigation.rememberNavController
 import java.awt.Dimension
 
 
@@ -100,15 +99,7 @@ fun App() {
                 NavigationHost(navController = navController) {
                     composable(Screen.HOME.name) { HomeScreen() }
                     composable(Screen.REGISTRO_USUARIO.name) { RegisterUserScreen(RegisterUserController()) }
-                    composable(Screen.PESSOAS.name) {
-                        PessoasScreen(navController
-//                            onPacientesClick = { navController.navigate(Screen.PACIENTES.name) },
-//                            onMedicosClick = { navController.navigate(Screen.MEDICOS.name) },
-//                            onEnfermeirosClick = { navController.navigate(Screen.ENFERMEIROS.name) },
-//                            onFarmaceuticosClick = { navController.navigate(Screen.FARMACEUTICOS.name) },
-//                            onUsuariosClick = { navController.navigate(Screen.USUARIOS.name) }
-                        )
-                    }
+                    composable(Screen.PESSOAS.name) { PessoasScreen(navController) }
                     composable(Screen.PACIENTES.name) { PessoasCategoryScreen("Pacientes", onBack = { navController.navigateBack() }) }
                     composable(Screen.MEDICOS.name) { PessoasCategoryScreen("Médicos", onBack = { navController.navigateBack() }) }
                     composable(Screen.ENFERMEIROS.name) { PessoasCategoryScreen("Enfermeiros", onBack = { navController.navigateBack() }) }
