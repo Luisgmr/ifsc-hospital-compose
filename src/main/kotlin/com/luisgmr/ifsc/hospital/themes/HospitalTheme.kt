@@ -16,19 +16,19 @@ import androidx.compose.ui.unit.sp
 private val LightColorPalette = lightColors(
     primary = Color(0xff575ceb),
     primaryVariant = Color(0xFF3700B3),
-    secondary = Color(0xFF03DAC6),
+    secondary = Color(0xffbdbdbd),
     background = Color(0xffeeeeee),
     surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
     onSecondary = Color(0xffe0e0e0),
     onBackground = Color.Black,
-    onSurface = Color.Black
+    onSurface = Color.Black,
 )
 
 private val DarkColorPalette = darkColors(
     primary = Color(0xff245379),
     primaryVariant = Color(0xFF3700B3),
-    secondary = Color(0xffe0e0e0),
+    secondary = Color(0xff949494),
     background = Color(0xFF121212),
     surface = Color(0xFF121212),
     onPrimary = Color.White,
@@ -80,8 +80,10 @@ val Typography = Typography(
         fontFamily = UbuntuFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp
-    )
+    ),
 )
+
+
 
 @Composable
 fun HospitalTheme(
