@@ -9,7 +9,7 @@ public class DatabaseConnection {
     private static DatabaseConnection instance;
     private Connection connection;
 
-    private static final String DATABASE_URL = "jdbc:mysql://192.168.3.67:3306/hospital_compose"; // Atualize com seu endereço do banco
+    private static final String DATABASE_URL = "jdbc:mysql://100.104.103.66/hospital_compose"; // Atualize com seu endereço do banco
     private static final String DATABASE_USER = "goat"; // Usuário do banco
     private static final String DATABASE_PASSWORD = "Refacty_db5498!#"; // Senha do banco
 

@@ -1,7 +1,6 @@
 package com.luisgmr.ifsc.hospital
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -18,12 +17,15 @@ import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
 import com.luisgmr.ifsc.hospital.screens.RegisterUserScreen
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
-import com.luisgmr.ifsc.hospital.view.CadastrosScreen
+import com.luisgmr.ifsc.hospital.view.PessoasScreen
+import compose.icons.FontAwesomeIcons
+import compose.icons.fontawesomeicons.Solid
+import compose.icons.fontawesomeicons.solid.*
 import java.awt.Dimension
 
-//
+
 enum class Screen {
-    HOME, GERENCIAR, BUSCAS, USUARIO, REGISTRO_USUARIO
+    HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO
 }
 
 @Composable
@@ -59,14 +61,14 @@ fun App() {
                                 HospitalNavigationRailItem(
                                     selected = currentScreen == Screen.HOME,
                                     onClick = { currentScreen = Screen.HOME },
-                                    icon = { Icon(Icons.Filled.Home, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                    icon = { Icon(FontAwesomeIcons.Solid.AddressCard, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Home") }
                                 )
                                 HospitalNavigationRailItem(
-                                    selected = currentScreen == Screen.GERENCIAR,
-                                    onClick = { currentScreen = Screen.GERENCIAR },
-                                    icon = { Icon(Icons.Filled.Settings, contentDescription = null, modifier = Modifier.size(32.dp)) },
-                                    label = { Text("Gerenciar") }
+                                    selected = currentScreen == Screen.PESSOAS,
+                                    onClick = { currentScreen = Screen.PESSOAS },
+                                    icon = { Icon(FontAwesomeIcons.Solid.HospitalUser, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                    label = { Text("Pessoas") }
                                 )
                                 HospitalNavigationRailItem(
                                     selected = currentScreen == Screen.BUSCAS,
@@ -78,7 +80,7 @@ fun App() {
                             HospitalNavigationRailItem(
                                 selected = currentScreen == Screen.REGISTRO_USUARIO,
                                 onClick = { currentScreen = Screen.REGISTRO_USUARIO },
-                                icon = { Icon(Icons.Filled.Person, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                icon = { Icon(FontAwesomeIcons.Solid.AngleRight, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                 label = { Text("Registrar") }
                             )
                         }
@@ -88,7 +90,7 @@ fun App() {
                 when (currentScreen) {
                     Screen.HOME -> HomeScreen()
                     Screen.REGISTRO_USUARIO -> RegisterUserScreen(RegisterUserController())
-                    Screen.GERENCIAR -> CadastrosScreen()
+                    Screen.PESSOAS -> PessoasScreen()
                     Screen.BUSCAS -> ConsultasScreen()
                     Screen.USUARIO -> UsuarioScreen()
                 }
