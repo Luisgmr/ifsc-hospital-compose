@@ -25,6 +25,7 @@ import compose.icons.fontawesomeicons.solid.*
 import com.luisgmr.ifsc.hospital.navigation.NavigationHost
 import com.luisgmr.ifsc.hospital.navigation.composable
 import com.luisgmr.ifsc.hospital.navigation.rememberNavController
+import com.luisgmr.ifsc.hospital.view.PessoasCategoryScreen
 import java.awt.Dimension
 
 
@@ -36,10 +37,8 @@ enum class Screen {
 @Composable
 fun App() {
     val screens = Screen.values().toList()
-    val navController by rememberNavController(Screen.HOME.name)
-    val currentScreen by remember {
-        navController.currentScreen
-    }
+    val navController by rememberNavController(Screen.HOME)
+    val currentScreen by remember { navController.currentScreen }
 
     HospitalTheme {
         Scaffold(
@@ -68,27 +67,27 @@ fun App() {
                                 verticalArrangement = Arrangement.spacedBy(8.dp),
                             ) {
                                 HospitalNavigationRailItem(
-                                    selected = false,
-                                    onClick = { navController.navigate(Screen.HOME.name) },
+                                    selected = currentScreen == Screen.HOME,
+                                    onClick = { navController.navigate(Screen.HOME) },
                                     icon = { Icon(FontAwesomeIcons.Solid.AddressCard, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Home") }
                                 )
                                 HospitalNavigationRailItem(
-                                    selected = false,
-                                    onClick = { navController.navigate(Screen.PESSOAS.name) },
+                                    selected = currentScreen == Screen.PESSOAS,
+                                    onClick = { navController.navigate(Screen.PESSOAS) },
                                     icon = { Icon(FontAwesomeIcons.Solid.HospitalUser, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Pessoas") }
                                 )
                                 HospitalNavigationRailItem(
-                                    selected = false,
-                                    onClick = { navController.navigate(Screen.MEDICOS.name) },
+                                    selected = currentScreen == Screen.BUSCAS,
+                                    onClick = { navController.navigate(Screen.BUSCAS) },
                                     icon = { Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Buscas") }
                                 )
                             }
                             HospitalNavigationRailItem(
-                                selected = false,
-                                onClick = { navController.navigate(Screen.REGISTRO_USUARIO.name) },
+                                selected = currentScreen == Screen.REGISTRO_USUARIO,
+                                onClick = { navController.navigate(Screen.REGISTRO_USUARIO) },
                                 icon = { Icon(FontAwesomeIcons.Solid.AngleRight, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                 label = { Text("Registrar") }
                             )
@@ -120,26 +119,6 @@ fun main() = application {
     ) {
         this.window.minimumSize = Dimension(1000, 750)
         App()
-    }
-}
-
-
-@Composable
-fun PessoasCategoryScreen(category: String, onBack: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(Icons.Filled.ArrowBack, contentDescription = "Voltar")
-            }
-            Text(text = "Lista de $category", style = MaterialTheme.typography.h4)
-        }
-        Text("Aqui estará a lista de $category.")
     }
 }
 

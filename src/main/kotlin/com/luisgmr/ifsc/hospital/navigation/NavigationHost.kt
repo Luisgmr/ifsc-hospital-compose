@@ -1,6 +1,7 @@
 package com.luisgmr.ifsc.hospital.navigation
 
 import androidx.compose.runtime.Composable
+import com.luisgmr.ifsc.hospital.Screen
 
 class NavigationHost(
     val navController: NavController,
@@ -27,7 +28,7 @@ fun NavigationHost.NavigationGraphBuilder.composable(
     route: String,
     content: @Composable () -> Unit
 ) {
-    if (navController.currentScreen.value == route) {
+    if (navController.currentScreen.value == Screen.valueOf(route)) {
         content()
     }
 

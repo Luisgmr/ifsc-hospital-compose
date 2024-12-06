@@ -41,27 +41,27 @@ fun PessoasScreen(navController: NavController) {
                     PessoasButton(
                         label = "Pacientes",
                         icon = FontAwesomeIcons.Solid.UserInjured,
-                        onClick = { navController.navigate(Screen.PACIENTES.name) }
+                        onClick = { navController.navigate(Screen.PACIENTES) }
                     )
                     PessoasButton(
                         label = "Médicos",
                         icon = FontAwesomeIcons.Solid.UserMd,
-                        onClick = { navController.navigate(Screen.MEDICOS.name) }
+                        onClick = { navController.navigate(Screen.MEDICOS) }
                     )
                     PessoasButton(
                         label = "Enfermeiros",
                         icon = FontAwesomeIcons.Solid.UserNurse,
-                        onClick = { navController.navigate(Screen.ENFERMEIROS.name) }
+                        onClick = { navController.navigate(Screen.ENFERMEIROS) }
                     )
                     PessoasButton(
                         label = "Farmaceuticos",
                         icon = FontAwesomeIcons.Solid.UserTie,
-                        onClick = { navController.navigate(Screen.FARMACEUTICOS.name) }
+                        onClick = { navController.navigate(Screen.FARMACEUTICOS) }
                     )
                     PessoasButton(
                         label = "Usuários",
                         icon = FontAwesomeIcons.Solid.UserAlt,
-                        onClick = { navController.navigate(Screen.USUARIOS.name) }
+                        onClick = { navController.navigate(Screen.USUARIOS) }
                     )
 
                 }

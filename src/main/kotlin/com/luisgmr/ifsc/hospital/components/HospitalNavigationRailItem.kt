@@ -7,10 +7,8 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.HoverInteraction
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.PressInteraction
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.MaterialTheme
@@ -54,24 +52,36 @@ fun HospitalNavigationRailItem(
         }
     }
 
-    Box(
-        modifier = Modifier
-            .scale(scale.value)
-            .padding(4.dp)
-            .hoverable(interactionSource)
-            .clickable(interactionSource = interactionSource, indication = null) {
-                onClick()
-            }
-            .background(
-                color = if (selected) MaterialTheme.colors.primary.copy(alpha = 0.2f) else Color.Transparent,
-                shape = RoundedCornerShape(8.dp)
-            )
+    Row(
+        modifier = if (selected) {
+            Modifier
+                .background(
+                color = Color.White.copy(alpha = 0.1f),
+                shape = MaterialTheme.shapes.medium)
+        } else {
+            Modifier
+        },
+        horizontalArrangement = Arrangement.Center,
     ) {
-        CompositionLocalProvider(LocalContentColor provides if (selected) Color.White else MaterialTheme.colors.onSecondary) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                icon()
+        Box(
+            modifier = Modifier
+                .scale(scale.value)
+                .padding(8.dp)
+                .hoverable(interactionSource)
+                .clickable(interactionSource = interactionSource, indication = null) {
+                    onClick()
+                }
+                .background(
+                    color = if (selected) MaterialTheme.colors.primary.copy(alpha = 0.2f) else Color.Transparent,
+                    shape = RoundedCornerShape(8.dp)
+                )
+        ) {
+            CompositionLocalProvider(LocalContentColor provides if (selected) Color.White else MaterialTheme.colors.onSecondary) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    icon()
+                }
             }
         }
     }
