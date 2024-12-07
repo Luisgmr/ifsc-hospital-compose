@@ -1,16 +1,20 @@
 package com.luisgmr.ifsc.hospital.model;
 
+import java.time.LocalDate;
+
 public class Paciente extends Pessoa {
  
 	private String tipoSanguineo;
 	private String sexo;
 	private String nomeSocial;
+	private LocalDate dataNascimento;
 
-	public Paciente(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String tipoSanguineo, String sexo, String nomeSocial) {
+	public Paciente(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String tipoSanguineo, String sexo, String nomeSocial, LocalDate dataNascimento) {
 		super(id, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
 		this.tipoSanguineo = tipoSanguineo;
 		this.sexo = sexo;
 		this.nomeSocial = nomeSocial;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public String getTipoSanguineo() {
@@ -35,6 +39,14 @@ public class Paciente extends Pessoa {
 
 	public void setNomeSocial(String nomeSocial) {
 		this.nomeSocial = nomeSocial;
+	}
+
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 	
 }
