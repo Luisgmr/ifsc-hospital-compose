@@ -40,7 +40,7 @@ fun SelectableButton(
                     color = Color.White.copy(alpha = 0.1f)
                 ),
             )
-            .padding(vertical = 8.dp, horizontal = 12.dp)
+            .padding(vertical = 10.dp, horizontal = 12.dp)
     ) {
         Text(
             text = label,
