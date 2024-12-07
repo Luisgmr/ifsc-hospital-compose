@@ -35,7 +35,7 @@ import compose.icons.fontawesomeicons.solid.ArrowLeft
 import compose.icons.fontawesomeicons.solid.Search
 
 enum class SelectedButton {
-    TODOS, MASCULINO, FEMININO
+    NOME, CPF
 }
 
 @Composable
@@ -46,9 +46,10 @@ fun PessoasCategoryScreen(
 ) {
     val pacientes = remember { mutableStateListOf<Paciente>() }
     val filteredPacientes = remember { mutableStateListOf<Paciente>() }
-    val selectedButton = remember { mutableStateOf(SelectedButton.TODOS) }
+    val selectedButton = remember { mutableStateOf(SelectedButton.NOME) }
     var isLoading by remember { mutableStateOf(true) }
-    var searchQuery by remember { mutableStateOf("") } // Texto de pesquisa
+    var searchQuery by remember { mutableStateOf("") }
+    var debounceQuery by remember { mutableStateOf("") }
 
     LaunchedEffect(Unit) {
         isLoading = true
@@ -58,10 +59,25 @@ fun PessoasCategoryScreen(
         isLoading = false
     }
 
+    // Debounce para buscar somente após o usuário parar de digitar
     LaunchedEffect(searchQuery) {
+        isLoading = true
+        // Adiciona um atraso de 500ms antes de atualizar `debounceQuery`
+        kotlinx.coroutines.delay(500)
+        debounceQuery = searchQuery
+        isLoading = false
+    }
+
+    // Atualiza os pacientes filtrados com base no debounceQuery
+    LaunchedEffect(debounceQuery, selectedButton.value) {
         filteredPacientes.clear()
         filteredPacientes.addAll(
-            pacientes.filter { it.nome?.contains(searchQuery, ignoreCase = true) == true }
+            pacientes.filter { paciente ->
+                when (selectedButton.value) {
+                    SelectedButton.NOME -> paciente.nome?.contains(debounceQuery, ignoreCase = true) == true
+                    SelectedButton.CPF -> paciente.cpfCnpj?.contains(debounceQuery, ignoreCase = true) == true
+                }
+            }
         )
     }
 
@@ -86,16 +102,18 @@ fun PessoasCategoryScreen(
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    SelectableButton("Todos", { selectedButton.value = SelectedButton.TODOS }, selectedButton.value == SelectedButton.TODOS)
-                    SelectableButton("Masculino", { selectedButton.value = SelectedButton.MASCULINO }, selectedButton.value == SelectedButton.MASCULINO)
-                    SelectableButton("Feminino", { selectedButton.value = SelectedButton.FEMININO }, selectedButton.value == SelectedButton.FEMININO)
+                    SelectableButton("Nome", { selectedButton.value = SelectedButton.NOME }, selectedButton.value == SelectedButton.NOME)
+                    SelectableButton("CPF", { selectedButton.value = SelectedButton.CPF }, selectedButton.value == SelectedButton.CPF)
                 }
                 var text by remember { mutableStateOf("") }
 
                 HospitalTextField(
                     text = searchQuery,
                     onTextChange = { searchQuery = it },
-                    placeholder = "Pesquisar paciente",
+                    placeholder = when (selectedButton.value) {
+                        SelectedButton.NOME -> { "Buscar por nome do paciente" }
+                        SelectedButton.CPF -> { "Buscar por CPF do paciente" }
+                    },
                     modifier = Modifier.padding(16.dp),
                     icon = FontAwesomeIcons.Solid.Search,
                 )
@@ -105,7 +123,11 @@ fun PessoasCategoryScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Total de pacientes: ${filteredPacientes.size}",
+                    text = if (isLoading) {
+                        "Buscando pacientes..."
+                    } else {
+                        "${filteredPacientes.size} pacientes encontrados"
+                    },
                     style = MaterialTheme.typography.caption,
                 )
             }
