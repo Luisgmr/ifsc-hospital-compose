@@ -48,8 +48,7 @@ fun PessoasCategoryScreen(
         isLoading = true
         controller.loadPessoas(pessoaType)
         pessoas.clear()
-        filteredPessoas.clear()
-        filteredPessoas.addAll(
+        pessoas.addAll(
             when (pessoaType) {
                 PessoaType.PACIENTE -> ClasseDados.getInstance().pacientes
                 PessoaType.MEDICO -> ClasseDados.getInstance().medicos

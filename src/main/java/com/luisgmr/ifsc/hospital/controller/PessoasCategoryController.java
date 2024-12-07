@@ -6,6 +6,7 @@ import com.luisgmr.ifsc.hospital.model.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PessoasCategoryController {
     private final PessoasCategoryDAO dao;
@@ -15,29 +16,29 @@ public class PessoasCategoryController {
     }
 
     public void loadPessoas(PessoaType type) {
-        List<? extends Pessoa> pessoasDoBanco = dao.getAllPessoas(type);
-
         ClasseDados dados = ClasseDados.getInstance();
+        List<? extends Pessoa> pessoas = (List<? extends Pessoa>) dao.getAllPessoas(type);
+
         switch (type) {
             case PACIENTE -> {
                 dados.pacientes.clear();
-                dados.pacientes.addAll((Collection<? extends Paciente>) pessoasDoBanco);
+                dados.pacientes.addAll((List<Paciente>) pessoas);
             }
             case MEDICO -> {
                 dados.medicos.clear();
-                dados.medicos.addAll((Collection<? extends Medico>) pessoasDoBanco);
+                dados.medicos.addAll((List<Medico>) pessoas);
             }
             case ENFERMEIRO -> {
                 dados.enfermeiros.clear();
-                dados.enfermeiros.addAll((Collection<? extends Enfermeiro>) pessoasDoBanco);
+                dados.enfermeiros.addAll((List<Enfermeiro>) pessoas);
             }
             case FARMACEUTICO -> {
                 dados.farmaceuticos.clear();
-                dados.farmaceuticos.addAll((Collection<? extends Farmaceutico>) pessoasDoBanco);
+                dados.farmaceuticos.addAll((List<Farmaceutico>) pessoas);
             }
             case USUARIO -> {
                 dados.usuarios.clear();
-                dados.usuarios.addAll((Collection<? extends Usuario>) pessoasDoBanco);
+                dados.usuarios.addAll((List<Usuario>) pessoas);
             }
         }
     }
