@@ -25,10 +25,10 @@ class NavigationHost(
 
 @Composable
 fun NavigationHost.NavigationGraphBuilder.composable(
-    route: String,
+    route: Screen,
     content: @Composable () -> Unit
 ) {
-    if (navController.currentScreen.value == Screen.valueOf(route)) {
+    if (navController.currentScreen.value == route) {
         content()
     }
 

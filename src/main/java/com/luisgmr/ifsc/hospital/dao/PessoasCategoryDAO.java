@@ -54,9 +54,6 @@ public class PessoasCategoryDAO {
                         resultSet.getString("logradouro"),
                         resultSet.getString("complemento")
                 );
-                System.out.println("Adicionando pessoa " + pessoa.getNome());
-
-                // Casting para o tipo específico
                 switch (type) {
                     case PACIENTE -> pessoas.add(new Paciente(
                             pessoa.getId(),
