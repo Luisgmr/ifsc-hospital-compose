@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 private val LightColorPalette = lightColors(
     primary = Color(0xff575ceb),
     primaryVariant = Color(0xFF3700B3),
-    secondary = Color(0xffbdbdbd),
+    secondary = Color(0xffd7d7d7),
     background = Color(0xffeeeeee),
     surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
@@ -37,11 +37,13 @@ private val DarkColorPalette = darkColors(
     onSurface = Color.White
 )
 
-val UbuntuFontFamily = FontFamily(
-    Font(resource = "fonts/Ubuntu-Regular.ttf", weight = FontWeight.Normal),
-    Font(resource = "fonts/Ubuntu-Bold.ttf", weight = FontWeight.Bold),
+val HospitalFontFamily = FontFamily(
     Font(resource = "fonts/Ubuntu-Light.ttf", weight = FontWeight.Light),
-    Font(resource = "fonts/Ubuntu-Medium.ttf", weight = FontWeight.Medium)
+    Font(resource = "fonts/rethink_sans_regular.ttf", weight = FontWeight.Normal),
+    Font(resource = "fonts/rethink_sans_medium.ttf", weight = FontWeight.Medium),
+    Font(resource = "fonts/rethink_sans_semi_bold.ttf", weight = FontWeight.SemiBold),
+    Font(resource = "fonts/rethink_sans_bold.ttf", weight = FontWeight.Bold),
+    Font(resource = "fonts/rethink_sand_extra_bold.ttf", weight = FontWeight.ExtraBold)
 )
 
 val Shapes = Shapes(
@@ -52,35 +54,41 @@ val Shapes = Shapes(
 
 val Typography = Typography(
     h1 = TextStyle(
-        fontFamily = UbuntuFontFamily,
+        fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Bold,
         fontSize = 30.sp
     ),
     h2 = TextStyle(
-        fontFamily = UbuntuFontFamily,
+        fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 24.sp
     ),
     h3 = TextStyle(
-        fontFamily = UbuntuFontFamily,
+        fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 20.sp
     ),
     body1 = TextStyle(
-        fontFamily = UbuntuFontFamily,
+        fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     ),
     body2 = TextStyle(
-        fontFamily = UbuntuFontFamily,
+        fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp
     ),
     button = TextStyle(
-        fontFamily = UbuntuFontFamily,
+        fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp
     ),
+    caption = TextStyle(
+        fontFamily = HospitalFontFamily,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 16.sp
+    )
+
 )
 
 
