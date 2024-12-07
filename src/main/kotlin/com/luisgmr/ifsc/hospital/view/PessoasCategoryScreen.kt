@@ -15,9 +15,7 @@ import com.luisgmr.ifsc.hospital.components.HospitalTextField
 import com.luisgmr.ifsc.hospital.components.SelectableButton
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
-import com.luisgmr.ifsc.hospital.model.ClasseDados
-import com.luisgmr.ifsc.hospital.model.Paciente
-import com.luisgmr.ifsc.hospital.model.Pessoa
+import com.luisgmr.ifsc.hospital.model.*
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import com.seanproctor.datatable.DataColumn
 import com.seanproctor.datatable.material3.PaginatedDataTable
@@ -88,7 +86,7 @@ fun PessoasCategoryScreen(
                     Icon(FontAwesomeIcons.Solid.AngleLeft, contentDescription = "Back", Modifier.size(24.dp))
                 }
                 Text(
-                    text = "Menu de ${pessoaType.displayName.lowercase()}",
+                    text = "Menu de ${pessoaType.pluralName.lowercase()}",
                     style = MaterialTheme.typography.h3
                 )
             }
@@ -122,9 +120,9 @@ fun PessoasCategoryScreen(
             ) {
                 Text(
                     text = if (isLoading) {
-                        "Buscando ${pessoaType.displayName.lowercase()}..."
+                        "Buscando ${pessoaType.pluralName.lowercase()}..."
                     } else {
-                        "${filteredPessoas.size} ${pessoaType.displayName.lowercase()} encontrados"
+                        "${filteredPessoas.size} ${pessoaType.pluralName.lowercase()} encontrados"
                     },
                     style = MaterialTheme.typography.caption,
                 )
@@ -170,14 +168,23 @@ fun PessoasCategoryScreen(
                             },
                             DataColumn {
                                 Text(
-                                    text = "Tipo sanguíneo",
+                                    text = when (pessoaType) {
+                                        PessoaType.PACIENTE -> "Tipo sanguíneo"
+                                        PessoaType.MEDICO -> "CRM"
+                                        PessoaType.ENFERMEIRO -> "CRE"
+                                        PessoaType.FARMACEUTICO -> "CFR"
+                                        PessoaType.USUARIO -> "Email"
+                                    },
                                     modifier = Modifier.offset(x = 16.dp),
                                     color = Color.White
                                 )
                             },
                             DataColumn {
                                 Text(
-                                    text = "Sexo",
+                                    text = when (pessoaType) {
+                                        PessoaType.PACIENTE -> "Sexo"
+                                        else -> {"Login"}
+                                    },
                                     modifier = Modifier.offset(x = 16.dp),
                                     color = Color.White
                                 )
@@ -195,8 +202,21 @@ fun PessoasCategoryScreen(
                                     )
                                 }
                                 cell { Text(pessoa.cpfCnpj ?: "") }
-                                cell { Text(pessoa.dataCadastro ?: "") }
-                                cell { Text(pessoa.email ?: "") }
+                                cell {
+                                    Text(when (pessoaType) {
+                                        PessoaType.PACIENTE -> {(pessoa as Paciente).tipoSanguineo}
+                                        PessoaType.MEDICO -> {(pessoa as Medico).crm}
+                                        PessoaType.ENFERMEIRO -> {(pessoa as Enfermeiro).cre}
+                                        PessoaType.FARMACEUTICO -> {(pessoa as Farmaceutico).cfr}
+                                        PessoaType.USUARIO -> {(pessoas as Usuario).login}
+                                    } ?: "")
+                                }
+                                cell {
+                                    Text(when (pessoaType) {
+                                        PessoaType.PACIENTE -> {(pessoa as Paciente).sexo}
+                                        else -> {pessoa.email}
+                                    } ?: "")
+                                }
                             }
                         }
                     }

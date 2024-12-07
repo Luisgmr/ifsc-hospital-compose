@@ -3,11 +3,11 @@ package com.luisgmr.ifsc.hospital.enums;
 import com.luisgmr.ifsc.hospital.model.*;
 
 public enum PessoaType {
-    PACIENTE("Pacientes", Paciente.class),
-    MEDICO("Médicos", Medico.class),
-    ENFERMEIRO("Enfermeiros", Enfermeiro.class),
-    FARMACEUTICO("Farmacêuticos", Farmaceutico.class),
-    USUARIO("Usuários", Usuario.class);
+    PACIENTE("Paciente", Paciente.class),
+    MEDICO("Médico", Medico.class),
+    ENFERMEIRO("Enfermeiro", Enfermeiro.class),
+    FARMACEUTICO("Farmacêutico", Farmaceutico.class),
+    USUARIO("Usuário", Usuario.class);
 
     String displayName;
     Class<? extends Pessoa> cls;
@@ -19,6 +19,10 @@ public enum PessoaType {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public String getPluralName() {
+        return displayName + "s";
     }
 
     public Class<?> getClassObject() {
