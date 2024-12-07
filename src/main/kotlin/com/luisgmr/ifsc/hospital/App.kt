@@ -17,6 +17,7 @@ import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
+import com.luisgmr.ifsc.hospital.enums.PessoaType
 import com.luisgmr.ifsc.hospital.screens.RegisterUserScreen
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import com.luisgmr.ifsc.hospital.view.PessoasScreen
@@ -100,11 +101,11 @@ fun App() {
                     composable(Screen.HOME.name) { HomeScreen() }
                     composable(Screen.REGISTRO_USUARIO.name) { RegisterUserScreen(RegisterUserController()) }
                     composable(Screen.PESSOAS.name) { PessoasScreen(navController) }
-                    composable(Screen.PACIENTES.name) { PessoasCategoryScreen(PessoasCategoryController(), "Pacientes", onBack = { navController.navigateBack() }) }
-                    composable(Screen.MEDICOS.name) { PessoasCategoryScreen(PessoasCategoryController(), "Médicos", onBack = { navController.navigateBack() }) }
-                    composable(Screen.ENFERMEIROS.name) { PessoasCategoryScreen(PessoasCategoryController(), "Enfermeiros", onBack = { navController.navigateBack() }) }
-                    composable(Screen.FARMACEUTICOS.name) { PessoasCategoryScreen(PessoasCategoryController(), "Farmacêuticos", onBack = { navController.navigateBack() }) }
-                    composable(Screen.USUARIOS.name) { PessoasCategoryScreen(PessoasCategoryController(), "Usuários", onBack = { navController.navigateBack() }) }
+                    composable(Screen.PACIENTES.name) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.PACIENTE, onBack = { navController.navigateBack() }) }
+                    composable(Screen.MEDICOS.name) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.MEDICO, onBack = { navController.navigateBack() }) }
+                    composable(Screen.ENFERMEIROS.name) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.ENFERMEIRO, onBack = { navController.navigateBack() }) }
+                    composable(Screen.FARMACEUTICOS.name) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.FARMACEUTICO, onBack = { navController.navigateBack() }) }
+                    composable(Screen.USUARIOS.name) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.USUARIO, onBack = { navController.navigateBack() }) }
                 }.build()
             }
         }

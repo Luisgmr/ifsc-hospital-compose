@@ -7,6 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import com.luisgmr.ifsc.hospital.model.*;
+import com.luisgmr.ifsc.hospital.enums.PessoaType;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PessoasCategoryDAO {
     private final ConnectionFactory connectionFactory;
@@ -15,19 +22,23 @@ public class PessoasCategoryDAO {
         this.connectionFactory = new ConnectionFactory();
     }
 
-    public List<Paciente> getAllPacientes() {
-        List<Paciente> pacientes = new ArrayList<>();
-        String query = """
-SELECT id,
-nome, fone1, fone2, email, cpf_cnpj, rg_inscricao_estadual, data_cadastro,
-endereco, cep, cidade, bairro, logradouro, complemento, tipo_sanguineo, sexo,
-nome_social, data_nascimento
-FROM paciente
-                """;
+    public List<? extends Pessoa> getAllPessoas(PessoaType type) {
+        String query;
+        List<Pessoa> pessoas = new ArrayList<>();
+
+        switch (type) {
+            case PACIENTE -> query = "SELECT * FROM paciente";
+            case MEDICO -> query = "SELECT * FROM medico";
+            case ENFERMEIRO -> query = "SELECT * FROM enfermeiro";
+            case FARMACEUTICO -> query = "SELECT * FROM farmaceutico";
+            case USUARIO -> query = "SELECT * FROM usuario";
+            default -> throw new IllegalArgumentException("Tipo de pessoa desconhecido: " + type);
+        }
 
         try (ResultSet resultSet = connectionFactory.executeQuery(query)) {
             while (resultSet != null && resultSet.next()) {
-                Paciente paciente = new Paciente(
+                // Criando um objeto base Pessoa
+                Pessoa pessoa = new Pessoa(
                         resultSet.getLong("id"),
                         resultSet.getString("nome"),
                         resultSet.getString("fone1"),
@@ -41,18 +52,116 @@ FROM paciente
                         resultSet.getString("cidade"),
                         resultSet.getString("bairro"),
                         resultSet.getString("logradouro"),
-                        resultSet.getString("complemento"),
-                        resultSet.getString("tipo_sanguineo"),
-                        resultSet.getString("sexo"),
-                        resultSet.getString("nome_social"),
-                        resultSet.getDate("data_nascimento").toLocalDate()
+                        resultSet.getString("complemento")
                 );
-                pacientes.add(paciente);
+
+                // Casting para o tipo específico
+                switch (type) {
+                    case PACIENTE -> pessoas.add(new Paciente(
+                            pessoa.getId(),
+                            pessoa.getNome(),
+                            pessoa.getFone1(),
+                            pessoa.getFone2(),
+                            pessoa.getEmail(),
+                            pessoa.getCpfCnpj(),
+                            pessoa.getRgInscricaoEstadual(),
+                            pessoa.getDataCadastro(),
+                            pessoa.getEndereco(),
+                            pessoa.getCep(),
+                            pessoa.getCidade(),
+                            pessoa.getBairro(),
+                            pessoa.getLogradouro(),
+                            pessoa.getComplemento(),
+                            resultSet.getString("tipo_sanguineo"),
+                            resultSet.getString("sexo"),
+                            resultSet.getString("nome_social"),
+                            resultSet.getDate("data_nascimento").toLocalDate()
+                    ));
+                    case MEDICO -> pessoas.add(new Medico(
+                            pessoa.getId(),
+                            pessoa.getNome(),
+                            pessoa.getFone1(),
+                            pessoa.getFone2(),
+                            pessoa.getEmail(),
+                            pessoa.getCpfCnpj(),
+                            pessoa.getRgInscricaoEstadual(),
+                            pessoa.getDataCadastro(),
+                            pessoa.getEndereco(),
+                            pessoa.getCep(),
+                            pessoa.getCidade(),
+                            pessoa.getBairro(),
+                            pessoa.getLogradouro(),
+                            pessoa.getComplemento(),
+                            resultSet.getString("crm"),
+                            resultSet.getString("senha"),
+                            resultSet.getString("login"),
+                            resultSet.getString("nome_social")
+                    ));
+                    case ENFERMEIRO -> pessoas.add(new Enfermeiro(
+                            pessoa.getId(),
+                            pessoa.getNome(),
+                            pessoa.getFone1(),
+                            pessoa.getFone2(),
+                            pessoa.getEmail(),
+                            pessoa.getCpfCnpj(),
+                            pessoa.getRgInscricaoEstadual(),
+                            pessoa.getDataCadastro(),
+                            pessoa.getEndereco(),
+                            pessoa.getCep(),
+                            pessoa.getCidade(),
+                            pessoa.getBairro(),
+                            pessoa.getLogradouro(),
+                            pessoa.getComplemento(),
+                            resultSet.getString("cre"),
+                            resultSet.getString("senha"),
+                            resultSet.getString("login"),
+                            resultSet.getString("nome_social")
+                    ));
+                    case FARMACEUTICO -> pessoas.add(new Farmaceutico(
+                            pessoa.getId(),
+                            pessoa.getNome(),
+                            pessoa.getFone1(),
+                            pessoa.getFone2(),
+                            pessoa.getEmail(),
+                            pessoa.getCpfCnpj(),
+                            pessoa.getRgInscricaoEstadual(),
+                            pessoa.getDataCadastro(),
+                            pessoa.getEndereco(),
+                            pessoa.getCep(),
+                            pessoa.getCidade(),
+                            pessoa.getBairro(),
+                            pessoa.getLogradouro(),
+                            pessoa.getComplemento(),
+                            resultSet.getString("cfr"),
+                            resultSet.getString("senha"),
+                            resultSet.getString("login"),
+                            resultSet.getString("nome_social")
+                    ));
+                    case USUARIO -> pessoas.add(new Usuario(
+                            pessoa.getId(),
+                            pessoa.getNome(),
+                            pessoa.getFone1(),
+                            pessoa.getFone2(),
+                            pessoa.getEmail(),
+                            pessoa.getCpfCnpj(),
+                            pessoa.getRgInscricaoEstadual(),
+                            pessoa.getDataCadastro(),
+                            pessoa.getEndereco(),
+                            pessoa.getCep(),
+                            pessoa.getCidade(),
+                            pessoa.getBairro(),
+                            pessoa.getLogradouro(),
+                            pessoa.getComplemento(),
+                            resultSet.getString("login"),
+                            resultSet.getString("senha"),
+                            resultSet.getString("nome_social")
+                    ));
+                }
             }
         } catch (SQLException e) {
-            System.err.println("Erro ao buscar pacientes: " + e.getMessage());
+            System.err.println("Erro ao buscar pessoas: " + e.getMessage());
         }
 
-        return pacientes;
+        return pessoas;
     }
 }

@@ -1,37 +1,30 @@
 package com.luisgmr.ifsc.hospital.view
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import com.luisgmr.ifsc.hospital.components.HospitalContent
 import com.luisgmr.ifsc.hospital.components.HospitalTextField
 import com.luisgmr.ifsc.hospital.components.SelectableButton
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
+import com.luisgmr.ifsc.hospital.enums.PessoaType
 import com.luisgmr.ifsc.hospital.model.ClasseDados
 import com.luisgmr.ifsc.hospital.model.Paciente
-import com.luisgmr.ifsc.hospital.navigation.NavController
+import com.luisgmr.ifsc.hospital.model.Pessoa
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import com.seanproctor.datatable.DataColumn
 import com.seanproctor.datatable.material3.PaginatedDataTable
 import com.seanproctor.datatable.paging.rememberPaginatedDataTableState
-import compose.icons.AllIcons
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.AngleLeft
-import compose.icons.fontawesomeicons.solid.AngleRight
-import compose.icons.fontawesomeicons.solid.ArrowLeft
 import compose.icons.fontawesomeicons.solid.Search
 
 enum class SelectedButton {
@@ -41,11 +34,11 @@ enum class SelectedButton {
 @Composable
 fun PessoasCategoryScreen(
     controller: PessoasCategoryController = PessoasCategoryController(),
-    category: String,
+    pessoaType: PessoaType,
     onBack: () -> Unit
 ) {
-    val pacientes = remember { mutableStateListOf<Paciente>() }
-    val filteredPacientes = remember { mutableStateListOf<Paciente>() }
+    val pessoas = remember { mutableStateListOf<Pessoa>() }
+    val filteredPessoas = remember { mutableStateListOf<Pessoa>() }
     val selectedButton = remember { mutableStateOf(SelectedButton.NOME) }
     var isLoading by remember { mutableStateOf(true) }
     var searchQuery by remember { mutableStateOf("") }
@@ -53,26 +46,32 @@ fun PessoasCategoryScreen(
 
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadPacientes()
-        pacientes.clear()
-        pacientes.addAll(ClasseDados.getInstance().pacientes)
+        controller.loadPessoas(pessoaType)
+        pessoas.clear()
+        filteredPessoas.clear()
+        filteredPessoas.addAll(
+            when (pessoaType) {
+                PessoaType.PACIENTE -> ClasseDados.getInstance().pacientes
+                PessoaType.MEDICO -> ClasseDados.getInstance().medicos
+                PessoaType.ENFERMEIRO -> ClasseDados.getInstance().enfermeiros
+                PessoaType.FARMACEUTICO -> ClasseDados.getInstance().farmaceuticos
+                PessoaType.USUARIO -> ClasseDados.getInstance().usuarios
+            }
+        )
         isLoading = false
     }
 
-    // Debounce para buscar somente após o usuário parar de digitar
     LaunchedEffect(searchQuery) {
         isLoading = true
-        // Adiciona um atraso de 500ms antes de atualizar `debounceQuery`
         kotlinx.coroutines.delay(500)
         debounceQuery = searchQuery
         isLoading = false
     }
 
-    // Atualiza os pacientes filtrados com base no debounceQuery
     LaunchedEffect(debounceQuery, selectedButton.value) {
-        filteredPacientes.clear()
-        filteredPacientes.addAll(
-            pacientes.filter { paciente ->
+        filteredPessoas.clear()
+        filteredPessoas.addAll(
+            pessoas.filter { paciente ->
                 when (selectedButton.value) {
                     SelectedButton.NOME -> paciente.nome?.contains(debounceQuery, ignoreCase = true) == true
                     SelectedButton.CPF -> paciente.cpfCnpj?.contains(debounceQuery, ignoreCase = true) == true
@@ -90,7 +89,7 @@ fun PessoasCategoryScreen(
                     Icon(FontAwesomeIcons.Solid.AngleLeft, contentDescription = "Back", Modifier.size(24.dp))
                 }
                 Text(
-                    text = "Menu de pacientes",
+                    text = "Menu de ${pessoaType.displayName.lowercase()}",
                     style = MaterialTheme.typography.h3
                 )
             }
@@ -111,8 +110,8 @@ fun PessoasCategoryScreen(
                     text = searchQuery,
                     onTextChange = { searchQuery = it },
                     placeholder = when (selectedButton.value) {
-                        SelectedButton.NOME -> { "Buscar por nome do paciente" }
-                        SelectedButton.CPF -> { "Buscar por CPF do paciente" }
+                        SelectedButton.NOME -> { "Buscar por nome do ${pessoaType.displayName.lowercase()}" }
+                        SelectedButton.CPF -> { "Buscar por CPF do ${pessoaType.displayName.lowercase()}" }
                     },
                     modifier = Modifier.padding(16.dp),
                     icon = FontAwesomeIcons.Solid.Search,
@@ -124,9 +123,9 @@ fun PessoasCategoryScreen(
             ) {
                 Text(
                     text = if (isLoading) {
-                        "Buscando pacientes..."
+                        "Buscando ${pessoaType.displayName.lowercase()}..."
                     } else {
-                        "${filteredPacientes.size} pacientes encontrados"
+                        "${filteredPessoas.size} ${pessoaType.displayName.lowercase()} encontrados"
                     },
                     style = MaterialTheme.typography.caption,
                 )
@@ -187,18 +186,18 @@ fun PessoasCategoryScreen(
                         ),
                         state = rememberPaginatedDataTableState(7),
                     ) {
-                        filteredPacientes.forEach { paciente ->
+                        filteredPessoas.forEach { pessoa ->
                             row {
                                 cell {
                                     Text(
-                                        text = paciente.nome ?: "",
+                                        text = pessoa.nome ?: "",
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis
                                     )
                                 }
-                                cell { Text(paciente.cpfCnpj ?: "") }
-                                cell { Text(paciente.tipoSanguineo ?: "") }
-                                cell { Text(paciente.sexo ?: "") }
+                                cell { Text(pessoa.cpfCnpj ?: "") }
+                                cell { Text(pessoa.dataCadastro ?: "") }
+                                cell { Text(pessoa.email ?: "") }
                             }
                         }
                     }
@@ -215,7 +214,7 @@ fun PessoasCategoryScreen(
                         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
                         shape = MaterialTheme.shapes.medium,
                     ) {
-                        Text("Cadastrar paciente")
+                        Text("Cadastrar ${pessoaType.displayName.lowercase()}")
                     }
                 }
             }
