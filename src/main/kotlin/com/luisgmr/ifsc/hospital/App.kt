@@ -15,26 +15,25 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
+import com.luisgmr.ifsc.hospital.controller.AcompanhanteController
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
 import com.luisgmr.ifsc.hospital.screens.RegisterUserScreen
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
-import com.luisgmr.ifsc.hospital.view.PessoasScreen
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.*
 import com.luisgmr.ifsc.hospital.navigation.NavigationHost
 import com.luisgmr.ifsc.hospital.navigation.composable
 import com.luisgmr.ifsc.hospital.navigation.rememberNavController
-import com.luisgmr.ifsc.hospital.view.CadastroPessoaScreen
-import com.luisgmr.ifsc.hospital.view.PessoasCategoryScreen
+import com.luisgmr.ifsc.hospital.view.*
 import java.awt.Dimension
 
 
 enum class Screen {
     HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
-    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS, CADASTRO_PESSOA
+    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS, CADASTRO_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE
 }
 
 @Composable
@@ -82,6 +81,12 @@ fun App() {
                                     label = { Text("Pessoas") }
                                 )
                                 HospitalNavigationRailItem(
+                                    selected = currentScreen == Screen.ACOMPANHANTES,
+                                    onClick = { navController.navigate(Screen.ACOMPANHANTES) },
+                                    icon = { Icon(FontAwesomeIcons.Solid.Users, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                    label = { Text("Acompanhantes") }
+                                )
+                                HospitalNavigationRailItem(
                                     selected = currentScreen == Screen.BUSCAS,
                                     onClick = { navController.navigate(Screen.BUSCAS) },
                                     icon = { Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(32.dp)) },
@@ -114,6 +119,10 @@ fun App() {
                             pessoaType = pessoaType,
                             controller = PessoasCategoryController(),
                             onBack = { navController.navigateBack() }
+                        )
+                    }
+                    composable(Screen.ACOMPANHANTES) { AcompanhanteScreen(AcompanhanteController(),navController, { navController.navigateBack() }) }
+                    composable(Screen.CADASTRO_ACOMPANHANTE) { AcompanhanteRegisterScreen(AcompanhanteController(), onBack = { navController.navigateBack() }
                         )
                     }
                 }.build()

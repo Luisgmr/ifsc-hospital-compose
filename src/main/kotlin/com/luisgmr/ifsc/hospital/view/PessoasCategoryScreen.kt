@@ -27,7 +27,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.AngleLeft
 import compose.icons.fontawesomeicons.solid.Search
 
-enum class SelectedButton {
+enum class SelectedButtonForPessoas {
     NOME, CPF
 }
 
@@ -40,7 +40,7 @@ fun PessoasCategoryScreen(
 ) {
     val pessoas = remember { mutableStateListOf<Pessoa>() }
     val filteredPessoas = remember { mutableStateListOf<Pessoa>() }
-    val selectedButton = remember { mutableStateOf(SelectedButton.NOME) }
+    val selectedButtonForPessoas = remember { mutableStateOf(SelectedButtonForPessoas.NOME) }
     var isLoading by remember { mutableStateOf(true) }
     var searchQuery by remember { mutableStateOf("") }
     var debounceQuery by remember { mutableStateOf("") }
@@ -68,13 +68,13 @@ fun PessoasCategoryScreen(
         isLoading = false
     }
 
-    LaunchedEffect(debounceQuery, selectedButton.value) {
+    LaunchedEffect(debounceQuery, selectedButtonForPessoas.value) {
         filteredPessoas.clear()
         filteredPessoas.addAll(
             pessoas.filter { paciente ->
-                when (selectedButton.value) {
-                    SelectedButton.NOME -> paciente.nome?.contains(debounceQuery, ignoreCase = true) == true
-                    SelectedButton.CPF -> paciente.cpfCnpj?.contains(debounceQuery, ignoreCase = true) == true
+                when (selectedButtonForPessoas.value) {
+                    SelectedButtonForPessoas.NOME -> paciente.nome?.contains(debounceQuery, ignoreCase = true) == true
+                    SelectedButtonForPessoas.CPF -> paciente.cpfCnpj?.contains(debounceQuery, ignoreCase = true) == true
                 }
             }
         )
@@ -101,17 +101,17 @@ fun PessoasCategoryScreen(
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    SelectableButton("Nome", { selectedButton.value = SelectedButton.NOME }, selectedButton.value == SelectedButton.NOME)
-                    SelectableButton("CPF", { selectedButton.value = SelectedButton.CPF }, selectedButton.value == SelectedButton.CPF)
+                    SelectableButton("Nome", { selectedButtonForPessoas.value = SelectedButtonForPessoas.NOME }, selectedButtonForPessoas.value == SelectedButtonForPessoas.NOME)
+                    SelectableButton("CPF", { selectedButtonForPessoas.value = SelectedButtonForPessoas.CPF }, selectedButtonForPessoas.value == SelectedButtonForPessoas.CPF)
                 }
                 var text by remember { mutableStateOf("") }
 
                 HospitalTextField(
                     text = searchQuery,
                     onTextChange = { searchQuery = it },
-                    placeholder = when (selectedButton.value) {
-                        SelectedButton.NOME -> { "Buscar por nome do ${pessoaType.displayName.lowercase()}" }
-                        SelectedButton.CPF -> { "Buscar por CPF do ${pessoaType.displayName.lowercase()}" }
+                    placeholder = when (selectedButtonForPessoas.value) {
+                        SelectedButtonForPessoas.NOME -> { "Buscar por nome do ${pessoaType.displayName.lowercase()}" }
+                        SelectedButtonForPessoas.CPF -> { "Buscar por CPF do ${pessoaType.displayName.lowercase()}" }
                     },
                     modifier = Modifier.padding(16.dp),
                     icon = FontAwesomeIcons.Solid.Search,
