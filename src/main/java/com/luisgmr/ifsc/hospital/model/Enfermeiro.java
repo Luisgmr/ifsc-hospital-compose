@@ -7,8 +7,8 @@ public class Enfermeiro extends Pessoa {
 	private String login;
 	private String nomeSocial;
 
-	public Enfermeiro(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String cre, String senha, String login, String nomeSocial) {
-		super(id, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
+	public Enfermeiro(String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String cre, String senha, String login, String nomeSocial) {
+		super(0, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
 		this.cre = cre;
 		this.senha = senha;
 		this.login = login;

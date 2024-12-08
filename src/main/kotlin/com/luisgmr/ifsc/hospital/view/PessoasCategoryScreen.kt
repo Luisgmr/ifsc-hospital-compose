@@ -10,12 +10,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.luisgmr.ifsc.hospital.Screen
 import com.luisgmr.ifsc.hospital.components.HospitalContent
 import com.luisgmr.ifsc.hospital.components.HospitalTextField
 import com.luisgmr.ifsc.hospital.components.SelectableButton
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
 import com.luisgmr.ifsc.hospital.model.*
+import com.luisgmr.ifsc.hospital.navigation.NavController
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import com.seanproctor.datatable.DataColumn
 import com.seanproctor.datatable.material3.PaginatedDataTable
@@ -33,6 +35,7 @@ enum class SelectedButton {
 fun PessoasCategoryScreen(
     controller: PessoasCategoryController = PessoasCategoryController(),
     pessoaType: PessoaType,
+    navController: NavController,
     onBack: () -> Unit
 ) {
     val pessoas = remember { mutableStateListOf<Pessoa>() }
@@ -228,7 +231,9 @@ fun PessoasCategoryScreen(
                             .background(Color.White)
                     )
                     Button(
-                        onClick = {},
+                        onClick = {
+                            navController.navigate(Screen.CADASTRO_PESSOA)
+                        },
                         modifier = Modifier.align(Alignment.BottomStart),
                         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
                         shape = MaterialTheme.shapes.medium,

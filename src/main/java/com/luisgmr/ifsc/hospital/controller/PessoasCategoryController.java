@@ -42,4 +42,17 @@ public class PessoasCategoryController {
             }
         }
     }
+
+    /**
+     * Método para salvar uma pessoa no banco de dados.
+     * @param pessoa Objeto genérico que pode ser Paciente, Medico, Enfermeiro, etc.
+     */
+    public void savePessoa(Pessoa pessoa) {
+        try {
+            dao.insertPessoa(pessoa);
+            System.out.println(pessoa.getNome() + " foi inserido(a) com sucesso!");
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar a pessoa: " + e.getMessage());
+        }
+    }
 }

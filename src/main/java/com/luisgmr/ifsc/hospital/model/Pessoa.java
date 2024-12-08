@@ -17,7 +17,7 @@ public class Pessoa {
 	private String complemento;
 
 	public Pessoa(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento) {
-		this.id = id;
+//		this.id = id;
 		this.nome = nome;
 		this.fone1 = fone1;
 		this.fone2 = fone2;

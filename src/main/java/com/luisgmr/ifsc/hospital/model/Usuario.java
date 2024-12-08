@@ -9,8 +9,8 @@ public class Usuario extends Pessoa {
 		super();
 	}
 
-	public Usuario(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String login, String senha, String nomeSocial) {
-		super(id, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
+	public Usuario(String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String login, String senha, String nomeSocial) {
+		super(0, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
 		this.login = login;
 		this.senha = senha;
 		this.nomeSocial = nomeSocial;

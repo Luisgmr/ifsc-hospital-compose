@@ -56,7 +56,7 @@ public class PessoasCategoryDAO {
                 );
                 switch (type) {
                     case PACIENTE -> pessoas.add(new Paciente(
-                            pessoa.getId(),
+//                            pessoa.getId(),
                             pessoa.getNome(),
                             pessoa.getFone1(),
                             pessoa.getFone2(),
@@ -76,7 +76,7 @@ public class PessoasCategoryDAO {
                             resultSet.getDate("data_nascimento").toLocalDate()
                     ));
                     case MEDICO -> pessoas.add(new Medico(
-                            pessoa.getId(),
+//                            pessoa.getId(),
                             pessoa.getNome(),
                             pessoa.getFone1(),
                             pessoa.getFone2(),
@@ -96,7 +96,7 @@ public class PessoasCategoryDAO {
                             resultSet.getString("nome_social")
                     ));
                     case ENFERMEIRO -> pessoas.add(new Enfermeiro(
-                            pessoa.getId(),
+//                            pessoa.getId(),
                             pessoa.getNome(),
                             pessoa.getFone1(),
                             pessoa.getFone2(),
@@ -116,7 +116,7 @@ public class PessoasCategoryDAO {
                             resultSet.getString("nome_social")
                     ));
                     case FARMACEUTICO -> pessoas.add(new Farmaceutico(
-                            pessoa.getId(),
+//                            pessoa.getId(),
                             pessoa.getNome(),
                             pessoa.getFone1(),
                             pessoa.getFone2(),
@@ -136,7 +136,7 @@ public class PessoasCategoryDAO {
                             resultSet.getString("nome_social")
                     ));
                     case USUARIO -> pessoas.add(new Usuario(
-                            pessoa.getId(),
+//                            pessoa.getId(), // TODO ARRUMAR PRA PODER TER ID
                             pessoa.getNome(),
                             pessoa.getFone1(),
                             pessoa.getFone2(),
@@ -159,7 +159,76 @@ public class PessoasCategoryDAO {
         } catch (SQLException e) {
             System.err.println("Erro ao buscar pessoas: " + e.getMessage());
         }
-
         return pessoas;
     }
+
+    public void insertPessoa(Pessoa pessoa) {
+        PessoaType type;
+
+        if (pessoa instanceof Paciente) {
+            type = PessoaType.PACIENTE;
+        } else if (pessoa instanceof Medico) {
+            type = PessoaType.MEDICO;
+        } else if (pessoa instanceof Enfermeiro) {
+            type = PessoaType.ENFERMEIRO;
+        } else if (pessoa instanceof Farmaceutico) {
+            type = PessoaType.FARMACEUTICO;
+        } else if (pessoa instanceof Usuario) {
+            type = PessoaType.USUARIO;
+        } else {
+            throw new IllegalArgumentException("Tipo desconhecido: " + pessoa.getClass().getSimpleName());
+        }
+
+        String query = switch (type) {
+            case PACIENTE -> """
+                INSERT INTO paciente (nome, fone1, fone2, email, cpf_cnpj, rg_inscricao_estadual, data_cadastro,
+                endereco, cep, cidade, bairro, logradouro, complemento, tipo_sanguineo, sexo)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+            case MEDICO -> """
+                INSERT INTO medico (nome, fone1, fone2, email, cpf_cnpj, rg_inscricao_estadual, data_cadastro,
+                endereco, cep, cidade, bairro, logradouro, complemento, crm, login)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+            case ENFERMEIRO -> """
+                INSERT INTO enfermeiro (nome, fone1, fone2, email, cpf_cnpj, rg_inscricao_estadual, data_cadastro,
+                endereco, cep, cidade, bairro, logradouro, complemento, cre, login)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+            case FARMACEUTICO -> """
+                INSERT INTO farmaceutico (nome, fone1, fone2, email, cpf_cnpj, rg_inscricao_estadual, data_cadastro,
+                endereco, cep, cidade, bairro, logradouro, complemento, cfr, login)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+            case USUARIO -> """
+                INSERT INTO usuario (nome, fone1, fone2, email, cpf_cnpj, rg_inscricao_estadual, data_cadastro,
+                endereco, cep, cidade, bairro, logradouro, complemento, login, senha)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
+        };
+
+        connectionFactory.executeUpdate(query,
+                pessoa.getNome(), pessoa.getFone1(), pessoa.getFone2(), pessoa.getEmail(),
+                pessoa.getCpfCnpj(), pessoa.getRgInscricaoEstadual(), pessoa.getDataCadastro(),
+                pessoa.getEndereco(), pessoa.getCep(), pessoa.getCidade(), pessoa.getBairro(),
+                pessoa.getLogradouro(), pessoa.getComplemento(),
+                switch (type) {
+                    case PACIENTE -> ((Paciente) pessoa).getTipoSanguineo();
+                    case MEDICO -> ((Medico) pessoa).getCrm();
+                    case ENFERMEIRO -> ((Enfermeiro) pessoa).getCre();
+                    case FARMACEUTICO -> ((Farmaceutico) pessoa).getCfr();
+                    case USUARIO -> ((Usuario) pessoa).getLogin();
+                    default -> null;
+                },
+                switch (type) {
+                    case PACIENTE -> ((Paciente) pessoa).getSexo();
+                    case MEDICO -> ((Medico) pessoa).getLogin();
+                    case ENFERMEIRO -> ((Enfermeiro) pessoa).getLogin();
+                    case FARMACEUTICO -> ((Farmaceutico) pessoa).getLogin();
+                    case USUARIO -> ((Usuario) pessoa).getSenha();
+                    default -> null;
+                }
+        );
+    }
+
 }

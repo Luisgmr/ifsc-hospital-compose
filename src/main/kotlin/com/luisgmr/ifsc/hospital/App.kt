@@ -27,13 +27,14 @@ import compose.icons.fontawesomeicons.solid.*
 import com.luisgmr.ifsc.hospital.navigation.NavigationHost
 import com.luisgmr.ifsc.hospital.navigation.composable
 import com.luisgmr.ifsc.hospital.navigation.rememberNavController
+import com.luisgmr.ifsc.hospital.view.CadastroPessoaScreen
 import com.luisgmr.ifsc.hospital.view.PessoasCategoryScreen
 import java.awt.Dimension
 
 
 enum class Screen {
     HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
-    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS
+    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS, CADASTRO_PESSOA
 }
 
 @Composable
@@ -101,11 +102,20 @@ fun App() {
                     composable(Screen.HOME) { HomeScreen() }
                     composable(Screen.REGISTRO_USUARIO) { RegisterUserScreen(RegisterUserController()) }
                     composable(Screen.PESSOAS) { PessoasScreen(navController) }
-                    composable(Screen.PACIENTES) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.PACIENTE, onBack = { navController.navigateBack() }) }
-                    composable(Screen.MEDICOS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.MEDICO, onBack = { navController.navigateBack() }) }
-                    composable(Screen.ENFERMEIROS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.ENFERMEIRO, onBack = { navController.navigateBack() }) }
-                    composable(Screen.FARMACEUTICOS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.FARMACEUTICO, onBack = { navController.navigateBack() }) }
-                    composable(Screen.USUARIOS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.USUARIO, onBack = { navController.navigateBack() }) }
+                    composable(Screen.PACIENTES) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.PACIENTE, navController, onBack = { navController.navigateBack() }) }
+                    composable(Screen.MEDICOS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.MEDICO, navController, onBack = { navController.navigateBack() }) }
+                    composable(Screen.ENFERMEIROS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.ENFERMEIRO, navController, onBack = { navController.navigateBack() }) }
+                    composable(Screen.FARMACEUTICOS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.FARMACEUTICO, navController, onBack = { navController.navigateBack() }) }
+                    composable(Screen.USUARIOS) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.USUARIO, navController, onBack = { navController.navigateBack() }) }
+                    composable(Screen.CADASTRO_PESSOA) {
+                        val pessoaType = navController.getArgumentsForCurrentScreen()?.get("pessoaType") as? PessoaType
+                            ?: PessoaType.PACIENTE
+                        CadastroPessoaScreen(
+                            pessoaType = pessoaType,
+                            controller = PessoasCategoryController(),
+                            onBack = { navController.navigateBack() }
+                        )
+                    }
                 }.build()
             }
         }

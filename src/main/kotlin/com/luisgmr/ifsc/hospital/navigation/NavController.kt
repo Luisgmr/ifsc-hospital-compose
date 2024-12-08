@@ -12,7 +12,10 @@ class NavController(
 ) {
     var currentScreen: MutableState<Screen> = mutableStateOf(startDestination)
 
-    fun navigate(route: Screen) {
+    // Mapa para armazenar argumentos temporários
+    var arguments: MutableMap<Screen, Map<String, Any>> = mutableMapOf()
+
+    fun navigate(route: Screen, args: Map<String, Any>? = null) {
         if (route != currentScreen.value) {
             if (backStackScreens.contains(currentScreen.value) && currentScreen.value != startDestination) {
                 backStackScreens.remove(currentScreen.value)
@@ -24,15 +27,25 @@ class NavController(
                 backStackScreens.add(currentScreen.value)
             }
 
+            // Armazena os argumentos para a rota
+            if (args != null) {
+                arguments[route] = args
+            }
+
             currentScreen.value = route
         }
     }
 
     fun navigateBack() {
         if (backStackScreens.isNotEmpty()) {
-            currentScreen.value = backStackScreens.last()
-            backStackScreens.remove(currentScreen.value)
+            val lastScreen = backStackScreens.last()
+            currentScreen.value = lastScreen
+            backStackScreens.remove(lastScreen)
         }
+    }
+
+    fun getArgumentsForCurrentScreen(): Map<String, Any>? {
+        return arguments[currentScreen.value]
     }
 }
 
