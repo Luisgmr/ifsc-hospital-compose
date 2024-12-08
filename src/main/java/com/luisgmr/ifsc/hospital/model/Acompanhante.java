@@ -14,8 +14,7 @@ public class Acompanhante {
     public Acompanhante(){
     }
 
-    public Acompanhante(long id, String nome, String grauParentesco, String cpf, String fone, String email, String status) {
-        this.id = id;
+    public Acompanhante(String nome, String grauParentesco, String cpf, String fone, String email, String status) {
         this.nome = nome;
         this.grauParentesco = grauParentesco;
         this.cpf = cpf;

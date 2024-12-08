@@ -47,7 +47,7 @@ public class AcompanhanteDAO {
         try (ResultSet resultSet = connectionFactory.executeQuery(query)) {
             while (resultSet != null && resultSet.next()) {
                 Acompanhante acompanhante = new Acompanhante(
-                        resultSet.getLong("id"),
+//                        resultSet.getLong("id"),
                         resultSet.getString("nome"),
                         resultSet.getString("grau_parentesco"),
                         resultSet.getString("cpf"),

@@ -125,13 +125,12 @@ fun AcompanhanteRegisterScreen(
                         println("Nome: $nome, Grau de Parentesco: $grauParentesco, CPF: $cpf, Fone: $fone, Email: $email, Status: $status")
 
                         val acompanhante = Acompanhante(
-                            id = 0L, // ID padrão
-                            nome = nome,
-                            grauParentesco = grauParentesco,
-                            cpf = cpf,
-                            fone = fone,
-                            email = email,
-                            status = status
+                            nome,
+                            grauParentesco,
+                            cpf,
+                            fone,
+                            email,
+                            status
                         )
 
                         try {
