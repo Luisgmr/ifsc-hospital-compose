@@ -9,8 +9,8 @@ public class Paciente extends Pessoa {
 	private String nomeSocial;
 	private LocalDate dataNascimento;
 
-	public Paciente(String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String tipoSanguineo, String sexo, String nomeSocial, LocalDate dataNascimento) {
-		super(0, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
+	public Paciente(String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String uf, String bairro, String logradouro, String complemento, String tipoSanguineo, String sexo, String nomeSocial, LocalDate dataNascimento) {
+		super(0, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, uf, bairro, logradouro, complemento);
 		this.tipoSanguineo = tipoSanguineo;
 		this.sexo = sexo;
 		this.nomeSocial = nomeSocial;

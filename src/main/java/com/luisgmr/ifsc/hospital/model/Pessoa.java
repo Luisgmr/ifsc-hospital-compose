@@ -12,11 +12,12 @@ public class Pessoa {
 	private String endereco;
 	private String cep;
 	private String cidade;
+	private String uf;
 	private String bairro;
 	private String logradouro;
 	private String complemento;
 
-	public Pessoa(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento) {
+	public Pessoa(long id, String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String uf, String bairro, String logradouro, String complemento) {
 //		this.id = id;
 		this.nome = nome;
 		this.fone1 = fone1;
@@ -28,6 +29,7 @@ public class Pessoa {
 		this.endereco = endereco;
 		this.cep = cep;
 		this.cidade = cidade;
+		this.uf = uf;
 		this.bairro = bairro;
 		this.logradouro = logradouro;
 		this.complemento = complemento;
@@ -133,6 +135,14 @@ public class Pessoa {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 

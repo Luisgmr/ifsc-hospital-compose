@@ -11,8 +11,8 @@ public class Medico extends Pessoa {
 		super();
 	}
 
-	public Medico(String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String bairro, String logradouro, String complemento, String crm, String senha, String login, String nomeSocial) {
-		super(0, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, bairro, logradouro, complemento);
+	public Medico(String nome, String fone1, String fone2, String email, String cpfCnpj, String rgInscricaoEstadual, String dataCadastro, String endereco, String cep, String cidade, String uf, String bairro, String logradouro, String complemento, String crm, String senha, String login, String nomeSocial) {
+		super(0, nome, fone1, fone2, email, cpfCnpj, rgInscricaoEstadual, dataCadastro, endereco, cep, cidade, uf, bairro, logradouro, complemento);
 		this.crm = crm;
 		this.senha = senha;
 		this.login = login;
