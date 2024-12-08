@@ -232,7 +232,10 @@ fun PessoasCategoryScreen(
                     )
                     Button(
                         onClick = {
-                            navController.navigate(Screen.CADASTRO_PESSOA)
+                            navController.navigate(
+                                Screen.CADASTRO_PESSOA,
+                                args = mapOf("pessoaType" to pessoaType)
+                            )
                         },
                         modifier = Modifier.align(Alignment.BottomStart),
                         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),

@@ -65,7 +65,7 @@ val Typography = Typography(
     ),
     h3 = TextStyle(
         fontFamily = HospitalFontFamily,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Bold,
         fontSize = 20.sp
     ),
     body1 = TextStyle(
