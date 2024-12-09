@@ -12,7 +12,6 @@ class NavController(
 ) {
     var currentScreen: MutableState<Screen> = mutableStateOf(startDestination)
 
-    // Mapa para armazenar argumentos temporários
     var arguments: MutableMap<Screen, Map<String, Any>> = mutableMapOf()
 
     fun navigate(route: Screen, args: Map<String, Any>? = null) {
@@ -27,7 +26,6 @@ class NavController(
                 backStackScreens.add(currentScreen.value)
             }
 
-            // Armazena os argumentos para a rota
             if (args != null) {
                 arguments[route] = args
             }

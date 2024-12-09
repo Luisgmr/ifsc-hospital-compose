@@ -33,6 +33,7 @@ import com.luisgmr.ifsc.hospital.navigation.composable
 import com.luisgmr.ifsc.hospital.navigation.rememberNavController
 import com.luisgmr.ifsc.hospital.view.CadastroPessoaScreen
 import com.luisgmr.ifsc.hospital.view.PessoasCategoryScreen
+import com.luisgmr.ifsc.hospital.view.PessoasEditScreen
 import java.awt.Dimension
 
 
@@ -130,7 +131,7 @@ fun App() {
                 }
 
                 NavigationHost(navController = navController) {
-                    composable(Screen.HOME) { HomeScreen() }
+                    composable(Screen.HOME) { HomeScreen(navController) }
                     composable(Screen.REGISTRO_USUARIO) { RegisterUserScreen(RegisterUserController()) }
                     composable(Screen.PESSOAS) { PessoasScreen(navController) }
                     composable(Screen.PACIENTES) { PessoasCategoryScreen(PessoasCategoryController(), PessoaType.PACIENTE, navController, onBack = { navController.navigateBack() }) }
@@ -184,13 +185,6 @@ fun main() = application {
         App()
     }
 }
-
-@Composable
-fun HomeScreen() {
-    Text("Bem-vindo à Home!")
-    ConnectDatabaseButton()
-}
-
 
 @Composable
 fun ConsultasScreen() {

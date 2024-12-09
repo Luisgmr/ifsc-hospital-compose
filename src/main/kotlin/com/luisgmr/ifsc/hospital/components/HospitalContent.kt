@@ -15,18 +15,19 @@ import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 fun HospitalContent(
     content: @Composable ColumnScope.() -> Unit = {},
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
+    backgroundColor: Color = Color.White,
 ) {
     HospitalTheme {
         Box(
             modifier = Modifier
-                .background(Color.White, shape = MaterialTheme.shapes.large)
+                .background(backgroundColor, shape = MaterialTheme.shapes.large)
                 .fillMaxSize()
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(24.dp)
-                    .background(Color.White, MaterialTheme.shapes.medium)
+                    .background(backgroundColor, MaterialTheme.shapes.medium)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = verticalArrangement,
             ) {

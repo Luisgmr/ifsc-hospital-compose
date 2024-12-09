@@ -93,7 +93,17 @@ val Typography = Typography(
         fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp
-    )
+    ),
+    subtitle1 = TextStyle(
+        fontFamily = HospitalFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+    subtitle2 = TextStyle(
+        fontFamily = HospitalFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
+    ),
 
 )
 
