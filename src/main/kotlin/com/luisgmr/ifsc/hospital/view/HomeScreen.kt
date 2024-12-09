@@ -32,38 +32,47 @@ import compose.icons.fontawesomeicons.solid.Bed
 import compose.icons.fontawesomeicons.solid.Phone
 import compose.icons.fontawesomeicons.solid.Syringe
 import compose.icons.fontawesomeicons.solid.UserInjured
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
 fun HomeScreen(navController: NavController) {
     val pessoasCategoryController = PessoasCategoryController()
     pessoasCategoryController.loadPessoas(PessoaType.PACIENTE)
+
+    val currentDate = LocalDate.now()
+    val weekDayFormat = DateTimeFormatter.ofPattern("EEEE, ", Locale("pt", "BR"))
+    val calendarDayFormat = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy", Locale("pt", "BR"))
+    val formattedWeekDay = currentDate.format(weekDayFormat)
+    val formattedCalendarDay = currentDate.format(calendarDayFormat)
+
     HospitalContent(
         backgroundColor = MaterialTheme.colors.background,
         content = {
             Text("Painel de controle", style = MaterialTheme.typography.h3)
             Row {
-                Text("Segunda-feira, ", color = Color.Gray, style = MaterialTheme.typography.subtitle2)
-                Text("9 de dezembro de 2024", color = MaterialTheme.colors.primary, style = MaterialTheme.typography.subtitle2)
+                Text(formattedWeekDay, color = Color.Gray, style = MaterialTheme.typography.subtitle2)
+                Text(formattedCalendarDay, color = MaterialTheme.colors.primary, style = MaterialTheme.typography.subtitle2)
             }
             Spacer(Modifier.size(16.dp))
-            Column(
-                modifier = Modifier
-                    .background(
-                    color = MaterialTheme.colors.primary,
-                    shape = MaterialTheme.shapes.medium)
-                    .padding(horizontal = 32.dp, vertical = 32.dp)
-                    .fillMaxWidth()
-            ) {
-                Image(
-                    painter = painterResource("images/tela_inicial_medico.png"),
-                    contentDescription = "Minha imagem",
-                    modifier = Modifier.size(150.dp)
-                )
-                Row {
-                    Text("Bem-vindo, ", color = Color.White, style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Normal))
-                    Text("Dr Wendel Bezerra!", color = Color.White, style = MaterialTheme.typography.h3)
+            Box {
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomStart)
+                        .background(
+                            color = MaterialTheme.colors.primary,
+                            shape = MaterialTheme.shapes.medium)
+                        .padding(horizontal = 130.dp, vertical = 32.dp)
+                        .fillMaxWidth()
+                ) {
+                    Row {
+                        Text("Bem-vindo, ", color = Color.White, style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Normal))
+                        Text("Dr Wendel Bezerra!", color = Color.White, style = MaterialTheme.typography.h3)
+                    }
+                    Text("Tenha um ótimo dia de trabalho!", color = Color.White, style = MaterialTheme.typography.subtitle1)
                 }
-                Text("Tenha um ótimo dia de trabalho!", color = Color.White, style = MaterialTheme.typography.subtitle1)
+                Image(painterResource("images/tela_inicial_medico.png"), null, Modifier.size(140.dp))
             }
             Spacer(Modifier.size(16.dp))
             Text("Relevante", style = MaterialTheme.typography.h3)

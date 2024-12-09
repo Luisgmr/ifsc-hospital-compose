@@ -31,16 +31,14 @@ import compose.icons.fontawesomeicons.solid.*
 import com.luisgmr.ifsc.hospital.navigation.NavigationHost
 import com.luisgmr.ifsc.hospital.navigation.composable
 import com.luisgmr.ifsc.hospital.navigation.rememberNavController
-import com.luisgmr.ifsc.hospital.view.CadastroPessoaScreen
-import com.luisgmr.ifsc.hospital.view.PessoasCategoryScreen
-import com.luisgmr.ifsc.hospital.view.PessoasEditScreen
+import com.luisgmr.ifsc.hospital.view.*
 import java.awt.Dimension
 
 
 enum class Screen {
     HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
     PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS,
-    CADASTRO_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS,
+    CADASTRO_PESSOA, EDITAR_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS,
     CADASTRO_ALA, EXAMES, CADASTRO_EXAME, LABORATORIOS, CADASTRO_LABORATORIO
 
 }
@@ -112,12 +110,6 @@ fun App() {
                                     onClick = { navController.navigate(Screen.LABORATORIOS) },
                                     icon = { Icon(FontAwesomeIcons.Solid.Flask, contentDescription = null, modifier = Modifier.size(32.dp)) },
                                     label = { Text("Laboratórios") }
-                                )
-                                HospitalNavigationRailItem(
-                                    selected = currentScreen == Screen.BUSCAS,
-                                    onClick = { navController.navigate(Screen.BUSCAS) },
-                                    icon = { Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(32.dp)) },
-                                    label = { Text("Buscas") }
                                 )
                             }
                             HospitalNavigationRailItem(
