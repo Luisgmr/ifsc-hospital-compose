@@ -41,6 +41,7 @@ fun CadastroPessoaScreen(
     var endereco by remember { mutableStateOf("") }
     var cep by remember { mutableStateOf("") }
     var cidade by remember { mutableStateOf("") }
+    var uf by remember { mutableStateOf("") }
     var logradouro by remember { mutableStateOf("") }
     var complemento by remember { mutableStateOf("") }
     var bairro by remember { mutableStateOf("") }
@@ -89,6 +90,15 @@ fun CadastroPessoaScreen(
                     HospitalOutlinedTextField(fone1, {fone1 = it}, "Fone 1", Modifier.weight(1f))
                     HospitalOutlinedTextField(fone2, {fone2 = it}, "Fone 2", Modifier.weight(1f))
                 }
+            }
+            Row(
+                horizontalArrangement = spacedBy(8.dp),
+            ) {
+                HospitalOutlinedTextField(cep, {cep = it}, "CEP", Modifier.weight(0.15f))
+                HospitalOutlinedTextField(bairro, {bairro = it}, "Bairro", Modifier.weight(0.25f))
+                HospitalOutlinedTextField(cidade, {cidade = it}, "Cidade", Modifier.weight(0.5f))
+                HospitalOutlinedTextField(uf, {uf = it}, "UF", Modifier.weight(0.1f))
+
             }
     })
 }
