@@ -198,6 +198,15 @@ fun PessoasCategoryScreen(
                         filteredPessoas.forEach { pessoa ->
                             row {
                                 cell {
+                                    onClick = {
+                                        navController.navigate(
+                                            route = Screen.EDITAR_PESSOA,
+                                            args = mapOf(
+                                                "pessoaType" to pessoaType,
+                                                "pessoa" to pessoa
+                                            )
+                                        )
+                                    }
                                     Text(
                                         text = pessoa.nome ?: "",
                                         maxLines = 2,

@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.luisgmr.ifsc.hospital.components.HospitalContent
 import com.luisgmr.ifsc.hospital.components.HospitalOutlinedTextField
@@ -35,19 +36,19 @@ fun PessoasEditScreen(
     val sexos = Sexo.entries.map{it.displayName}
     val estados = UF.entries.map{it.sigla}
 
-    var nome by remember { mutableStateOf(pessoa.nome) }
-    var cpf by remember { mutableStateOf(pessoa.cpfCnpj) }
-    var rg by remember { mutableStateOf(pessoa.rgInscricaoEstadual) }
-    var fone1 by remember { mutableStateOf(pessoa.fone1) }
-    var fone2 by remember { mutableStateOf(pessoa.fone2) }
-    var email by remember { mutableStateOf(pessoa.email) }
-    var endereco by remember { mutableStateOf(pessoa.endereco) }
-    var cep by remember { mutableStateOf(pessoa.cep) }
-    var cidade by remember { mutableStateOf(pessoa.cidade) }
-    var uf by remember { mutableStateOf(pessoa.uf) }
-    var logradouro by remember { mutableStateOf(pessoa.logradouro) }
-    var complemento by remember { mutableStateOf(pessoa.complemento) }
-    var bairro by remember { mutableStateOf(pessoa.bairro) }
+    var nome by remember { mutableStateOf(pessoa.nome ?: "") }
+    var cpf by remember { mutableStateOf(pessoa.cpfCnpj ?: "") }
+    var rg by remember { mutableStateOf(pessoa.rgInscricaoEstadual ?: "") }
+    var fone1 by remember { mutableStateOf(pessoa.fone1 ?: "") }
+    var fone2 by remember { mutableStateOf(pessoa.fone2 ?: "") }
+    var email by remember { mutableStateOf(pessoa.email ?: "") }
+    var endereco by remember { mutableStateOf(pessoa.endereco ?: "") }
+    var cep by remember { mutableStateOf(pessoa.cep ?: "") }
+    var cidade by remember { mutableStateOf(pessoa.cidade ?: "") }
+    var uf by remember { mutableStateOf(pessoa.uf ?: "") }
+    var logradouro by remember { mutableStateOf(pessoa.logradouro ?: "") }
+    var complemento by remember { mutableStateOf(pessoa.complemento ?: "") }
+    var bairro by remember { mutableStateOf(pessoa.bairro ?: "") }
     var dataNascimento by remember { mutableStateOf("") }
     var tipoSanguineo by remember { mutableStateOf("") }
     var sexo by remember { mutableStateOf("") }
@@ -60,7 +61,7 @@ fun PessoasEditScreen(
     when (pessoaType) {
         PessoaType.PACIENTE -> {
             val paciente = pessoa as Paciente
-            dataNascimento = paciente.dataNascimento?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) ?: ""
+            dataNascimento = paciente.dataNascimento?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))!!.replace("/", "") ?: ""
             tipoSanguineo = paciente.tipoSanguineo ?: ""
             sexo = paciente.sexo ?: ""
         }
@@ -418,100 +419,117 @@ fun PessoasEditScreen(
                     }
                 }
             }
-            Button(
-                contentPadding = PaddingValues(vertical = 10.dp, horizontal = 24.dp),
-                onClick = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = spacedBy(8.dp)
+            ) {
+                Button(
+                    contentPadding = PaddingValues(vertical = 10.dp, horizontal = 24.dp),
+                    onClick = {
 
-                    nomeError = nome.isBlank()
-                    cpfError = cpf.length != 11
-                    rgError = rg.isBlank()
-                    fone1Error = fone1.isBlank()
-                    fone2Error = fone2.isNotBlank() && fone2.length < 10 // Opcional, mas se preenchido, deve ser válido
-                    emailError = email.isBlank() || !email.contains("@")
-                    dataNascimentoError = dataNascimento.isBlank() || parseDateFromRawInput(dataNascimento) == null
-                    enderecoError = endereco.isBlank()
-                    cepError = cep.length != 8
-                    cidadeError = cidade.isBlank()
-                    ufError = uf.isBlank() || uf.length != 2
-                    logradouroError = logradouro.isBlank()
-                    complementoError = complemento.isBlank()
-                    bairroError = bairro.isBlank()
-                    tipoSanguineoError = tipoSanguineo.isBlank()
-                    sexoError = sexo.isBlank()
-                    crmError = pessoaType == PessoaType.MEDICO && crm.isBlank()
-                    creError = pessoaType == PessoaType.ENFERMEIRO && cre.isBlank()
-                    cfrError = pessoaType == PessoaType.FARMACEUTICO && cfr.isBlank()
-                    loginError = pessoaType != PessoaType.PACIENTE && login.isBlank()
-                    senhaError = pessoaType != PessoaType.PACIENTE && senha.isBlank()
+                        nomeError = nome.isBlank()
+                        cpfError = cpf.length != 11
+                        rgError = rg.isBlank()
+                        fone1Error = fone1.isBlank()
+                        fone2Error = fone2.isNotBlank() && fone2.length < 10 // Opcional, mas se preenchido, deve ser válido
+                        emailError = email.isBlank() || !email.contains("@")
+                        dataNascimentoError = dataNascimento.isBlank() || parseDateFromRawInput(dataNascimento) == null
+                        enderecoError = endereco.isBlank()
+                        cepError = cep.length != 8
+                        cidadeError = cidade.isBlank()
+                        ufError = uf.isBlank() || uf.length != 2
+                        logradouroError = logradouro.isBlank()
+                        complementoError = complemento.isBlank()
+                        bairroError = bairro.isBlank()
+                        tipoSanguineoError = tipoSanguineo.isBlank()
+                        sexoError = sexo.isBlank()
+                        crmError = pessoaType == PessoaType.MEDICO && crm.isBlank()
+                        creError = pessoaType == PessoaType.ENFERMEIRO && cre.isBlank()
+                        cfrError = pessoaType == PessoaType.FARMACEUTICO && cfr.isBlank()
+                        loginError = pessoaType != PessoaType.PACIENTE && login.isBlank()
+                        senhaError = pessoaType != PessoaType.PACIENTE && senha.isBlank()
 
-                    val hasErrors = nomeError || cpfError || rgError || fone1Error || fone2Error || emailError || dataNascimentoError ||
-                            enderecoError || cepError || cidadeError || ufError || logradouroError || complementoError || bairroError ||
-                            tipoSanguineoError || sexoError || crmError || creError || cfrError || loginError || senhaError
+                        val hasErrors = nomeError || cpfError || rgError || fone1Error || fone2Error || emailError || dataNascimentoError ||
+                                enderecoError || cepError || cidadeError || ufError || logradouroError || complementoError || bairroError ||
+                                tipoSanguineoError || sexoError || crmError || creError || cfrError || loginError || senhaError
 
-                    if (!hasErrors) {
-                        when (pessoaType) {
-                            PessoaType.PACIENTE -> {
-                                val parsedDate = parseDateFromRawInput(dataNascimento)
-                                if (parsedDate != null) {
-                                    val paciente = Paciente(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                        tipoSanguineo,
-                                        sexo,
-                                        nome,
-                                        parsedDate
+                        if (!hasErrors) {
+                            when (pessoaType) {
+                                PessoaType.PACIENTE -> {
+                                    val parsedDate = parseDateFromRawInput(dataNascimento)
+                                    if (parsedDate != null) {
+                                        val paciente = Paciente(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
+                                            tipoSanguineo,
+                                            sexo,
+                                            nome,
+                                            parsedDate
+                                        )
+                                        controller.updatePessoa(pessoa.cpfCnpj, paciente, pessoaType)
+                                        onBack()
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Data invalida")
+                                    }
+                                }
+                                PessoaType.MEDICO -> {
+                                    val medico = Medico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
+                                        crm,
+                                        senha,
+                                        login,
+                                        nome
                                     )
-                                    controller.savePessoa(paciente)
+                                    controller.updatePessoa(pessoa.cpfCnpj, medico, pessoaType)
                                     onBack()
-                                } else {
-                                    JOptionPane.showMessageDialog(null, "Data invalida")
+                                }
+                                PessoaType.ENFERMEIRO -> {
+                                    val enfermeiro = Enfermeiro(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
+                                        cre,
+                                        senha,
+                                        login,
+                                        nome
+                                    )
+                                    controller.updatePessoa(pessoa.cpfCnpj, enfermeiro, pessoaType)
+                                    onBack()
+                                }
+                                PessoaType.FARMACEUTICO -> {
+                                    val farmaceutico = Farmaceutico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
+                                        cfr,
+                                        senha,
+                                        login,
+                                        nome
+                                    )
+                                    controller.updatePessoa(pessoa.cpfCnpj, farmaceutico, pessoaType)
+                                    onBack()
+                                }
+                                PessoaType.USUARIO -> {
+                                    val usuario = Usuario(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
+                                        login,
+                                        senha,
+                                        nome
+                                    )
+                                    controller.updatePessoa(pessoa.cpfCnpj, usuario, pessoaType)
+                                    onBack()
                                 }
                             }
-                            PessoaType.MEDICO -> {
-                                val medico = Medico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    crm,
-                                    senha,
-                                    login,
-                                    nome
-                                )
-                                controller.savePessoa(medico)
-                                onBack()
-                            }
-                            PessoaType.ENFERMEIRO -> {
-                                val enfermeiro = Enfermeiro(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    cre,
-                                    senha,
-                                    login,
-                                    nome
-                                )
-                                controller.savePessoa(enfermeiro)
-                                onBack()
-                            }
-                            PessoaType.FARMACEUTICO -> {
-                                val farmaceutico = Farmaceutico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    cfr,
-                                    senha,
-                                    login,
-                                    nome
-                                )
-                                controller.savePessoa(farmaceutico)
-                                onBack()
-                            }
-                            PessoaType.USUARIO -> {
-                                val usuario = Usuario(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    login,
-                                    senha,
-                                    nome
-                                )
-                                controller.savePessoa(usuario)
-                                onBack()
-                            }
+                            JOptionPane.showMessageDialog(null, pessoaType.displayName + " editado com sucesso!")
                         }
-                        JOptionPane.showMessageDialog(null, pessoaType.displayName + " editado com sucesso!")
-                    }
 
-                },
-                shape = MaterialTheme.shapes.medium
-            ) {
-                Text("Editar ${pessoaType.displayName.lowercase()}")
+                    },
+                    shape = MaterialTheme.shapes.medium
+                ) {
+                    Text("Salvar ${pessoaType.displayName.lowercase()}")
+                }
+                Button(
+                    contentPadding = PaddingValues(vertical = 10.dp, horizontal = 24.dp),
+                    shape = MaterialTheme.shapes.medium,
+                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error),
+                    onClick = {
+                        controller.deletePessoa(pessoa.cpfCnpj, pessoaType)
+                        JOptionPane.showMessageDialog(null, "$pessoaType excluído com sucesso!")
+                        onBack()
+                    }
+                ) {
+                    Text("Excluir ${pessoaType.displayName.lowercase()}")
+                }
             }
     })
 }

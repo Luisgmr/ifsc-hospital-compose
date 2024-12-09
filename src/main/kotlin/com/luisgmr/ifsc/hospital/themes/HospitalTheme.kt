@@ -23,7 +23,7 @@ private val LightColorPalette = lightColors(
     onSecondary = Color(0xffe0e0e0),
     onBackground = Color.Black,
     onSurface = Color.Black,
-    error = Color(0xffce1313),
+    error = Color(0xffa61111),
 )
 
 private val DarkColorPalette = darkColors(
@@ -101,7 +101,6 @@ val Typography = Typography(
 
 @Composable
 fun HospitalTheme(
-//    darkTheme: Boolean = isSystemInDarkTheme(),
     darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {

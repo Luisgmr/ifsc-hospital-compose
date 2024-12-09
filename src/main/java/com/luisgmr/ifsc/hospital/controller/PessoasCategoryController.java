@@ -59,4 +59,13 @@ public class PessoasCategoryController {
             System.err.println("Erro ao salvar a pessoa: " + e.getMessage());
         }
     }
+
+    public void updatePessoa(String cpf, Pessoa pessoa, PessoaType pessoaType) {
+        dao.updatePessoa(cpf, pessoa, pessoaType);
+    }
+
+    public void deletePessoa(String cpf, PessoaType pessoaType) {
+        dao.deletePessoa(cpf, pessoaType);
+    }
+
 }

@@ -452,4 +452,21 @@ public class PessoasCategoryDAO {
         System.out.println("Pessoa atualizada com sucesso!");
     }
 
+    public void deletePessoa(String cpf, PessoaType type) {
+        String query;
+
+        switch (type) {
+            case PACIENTE -> query = "DELETE FROM paciente WHERE cpf_cnpj = ?";
+            case MEDICO -> query = "DELETE FROM medico WHERE cpf_cnpj = ?";
+            case ENFERMEIRO -> query = "DELETE FROM enfermeiro WHERE cpf_cnpj = ?";
+            case FARMACEUTICO -> query = "DELETE FROM farmaceutico WHERE cpf_cnpj = ?";
+            case USUARIO -> query = "DELETE FROM usuario WHERE cpf_cnpj = ?";
+            default -> throw new IllegalArgumentException("Tipo de pessoa desconhecido: " + type);
+        }
+
+        connectionFactory.executeUpdate(query, cpf);
+        System.out.println("Pessoa excluída com sucesso!");
+    }
+
+
 }

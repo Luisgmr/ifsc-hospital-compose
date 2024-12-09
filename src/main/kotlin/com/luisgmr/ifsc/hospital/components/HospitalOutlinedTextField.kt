@@ -43,7 +43,7 @@ fun HospitalOutlinedTextField(
             maxLines = maxLines,
             onValueChange = { newText ->
                 val filtered = when (fieldType) {
-                    InputType.CPF, InputType.CNPJ, InputType.CEP, InputType.RG, InputType.NUMBER, InputType.DATE -> {
+                    InputType.CPF, InputType.CNPJ, InputType.CEP, InputType.RG, InputType.NUMBER, InputType.DATE, InputType.PHONE -> {
                         newText.filter { it.isDigit() }
                     }
                     else -> newText
