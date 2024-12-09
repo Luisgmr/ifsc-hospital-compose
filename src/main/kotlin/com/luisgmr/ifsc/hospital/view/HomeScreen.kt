@@ -1,5 +1,6 @@
 package com.luisgmr.ifsc.hospital.view
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.luisgmr.ifsc.hospital.Screen
@@ -52,6 +54,11 @@ fun HomeScreen(navController: NavController) {
                     .padding(horizontal = 32.dp, vertical = 32.dp)
                     .fillMaxWidth()
             ) {
+                Image(
+                    painter = painterResource("images/tela_inicial_medico.png"),
+                    contentDescription = "Minha imagem",
+                    modifier = Modifier.size(150.dp)
+                )
                 Row {
                     Text("Bem-vindo, ", color = Color.White, style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Normal))
                     Text("Dr Wendel Bezerra!", color = Color.White, style = MaterialTheme.typography.h3)

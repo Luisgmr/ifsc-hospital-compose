@@ -24,6 +24,12 @@ dependencies {
     implementation("com.seanproctor:data-table:latest.release")
 }
 
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.luisgmr.ifsc.hospital.resources"
+    generateResClass = auto
+}
+
 compose.desktop {
     application {
         mainClass = "AppKt"
