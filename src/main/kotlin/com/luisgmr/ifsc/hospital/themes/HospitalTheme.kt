@@ -23,6 +23,7 @@ private val LightColorPalette = lightColors(
     onSecondary = Color(0xffe0e0e0),
     onBackground = Color.Black,
     onSurface = Color.Black,
+    error = Color(0xffce1313),
 )
 
 private val DarkColorPalette = darkColors(
@@ -77,6 +78,11 @@ val Typography = Typography(
         fontFamily = HospitalFontFamily,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp
+    ),
+    overline = TextStyle(
+        fontFamily = HospitalFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
     ),
     button = TextStyle(
         fontFamily = HospitalFontFamily,

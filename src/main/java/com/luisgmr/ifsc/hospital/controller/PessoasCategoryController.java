@@ -43,6 +43,10 @@ public class PessoasCategoryController {
         }
     }
 
+    public Pessoa getPessoaByCPF(String cpf, PessoaType type) {
+        return dao.getPessoaByCPF(cpf, type);
+    }
+
     /**
      * Método para salvar uma pessoa no banco de dados.
      * @param pessoa Objeto genérico que pode ser Paciente, Medico, Enfermeiro, etc.

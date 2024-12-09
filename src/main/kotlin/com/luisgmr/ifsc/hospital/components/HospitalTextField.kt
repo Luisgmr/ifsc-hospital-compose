@@ -29,6 +29,7 @@ fun HospitalTextField(
     textStyle: TextStyle = MaterialTheme.typography.body1,
     icon: ImageVector? = null,
     maxLines: Int = 1,
+    isEnabled: Boolean = true,
 ) {
     Row(
         modifier = modifier
@@ -45,6 +46,7 @@ fun HospitalTextField(
         BasicTextField(
             value = text,
             onValueChange = onTextChange,
+            enabled = isEnabled,
             textStyle = textStyle.copy(color = MaterialTheme.colors.onSurface),
             modifier = Modifier
                 .padding(horizontal = 8.dp)

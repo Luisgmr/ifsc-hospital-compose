@@ -25,7 +25,8 @@ import java.time.format.DateTimeFormatter
 import javax.swing.JOptionPane
 
 @Composable
-fun CadastroPessoaScreen(
+fun PessoasEditScreen(
+    pessoa: Pessoa,
     pessoaType: PessoaType,
     controller: PessoasCategoryController,
     onBack: () -> Unit
@@ -34,20 +35,20 @@ fun CadastroPessoaScreen(
     val sexos = Sexo.entries.map{it.displayName}
     val estados = UF.entries.map{it.sigla}
 
-    var nome by remember { mutableStateOf("") }
-    var cpf by remember { mutableStateOf("") }
-    var rg by remember { mutableStateOf("") }
-    var fone1 by remember { mutableStateOf("") }
-    var fone2 by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
+    var nome by remember { mutableStateOf(pessoa.nome) }
+    var cpf by remember { mutableStateOf(pessoa.cpfCnpj) }
+    var rg by remember { mutableStateOf(pessoa.rgInscricaoEstadual) }
+    var fone1 by remember { mutableStateOf(pessoa.fone1) }
+    var fone2 by remember { mutableStateOf(pessoa.fone2) }
+    var email by remember { mutableStateOf(pessoa.email) }
+    var endereco by remember { mutableStateOf(pessoa.endereco) }
+    var cep by remember { mutableStateOf(pessoa.cep) }
+    var cidade by remember { mutableStateOf(pessoa.cidade) }
+    var uf by remember { mutableStateOf(pessoa.uf) }
+    var logradouro by remember { mutableStateOf(pessoa.logradouro) }
+    var complemento by remember { mutableStateOf(pessoa.complemento) }
+    var bairro by remember { mutableStateOf(pessoa.bairro) }
     var dataNascimento by remember { mutableStateOf("") }
-    var endereco by remember { mutableStateOf("") }
-    var cep by remember { mutableStateOf("") }
-    var cidade by remember { mutableStateOf("") }
-    var uf by remember { mutableStateOf("") }
-    var logradouro by remember { mutableStateOf("") }
-    var complemento by remember { mutableStateOf("") }
-    var bairro by remember { mutableStateOf("") }
     var tipoSanguineo by remember { mutableStateOf("") }
     var sexo by remember { mutableStateOf("") }
     var crm by remember { mutableStateOf("") }
@@ -55,6 +56,38 @@ fun CadastroPessoaScreen(
     var cfr by remember { mutableStateOf("") }
     var login by remember { mutableStateOf("") }
     var senha by remember { mutableStateOf("") }
+
+    when (pessoaType) {
+        PessoaType.PACIENTE -> {
+            val paciente = pessoa as Paciente
+            dataNascimento = paciente.dataNascimento?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) ?: ""
+            tipoSanguineo = paciente.tipoSanguineo ?: ""
+            sexo = paciente.sexo ?: ""
+        }
+        PessoaType.MEDICO -> {
+            val medico = pessoa as Medico
+            crm = medico.crm ?: ""
+            login = medico.login ?: ""
+            senha = medico.senha ?: ""
+        }
+        PessoaType.ENFERMEIRO -> {
+            val enfermeiro = pessoa as Enfermeiro
+            cre = enfermeiro.cre ?: ""
+            login = enfermeiro.login ?: ""
+            senha = enfermeiro.senha ?: ""
+        }
+        PessoaType.FARMACEUTICO -> {
+            val farmaceutico = pessoa as Farmaceutico
+            cfr = farmaceutico.cfr ?: ""
+            login = farmaceutico.login ?: ""
+            senha = farmaceutico.senha ?: ""
+        }
+        PessoaType.USUARIO -> {
+            val usuario = pessoa as Usuario
+            login = usuario.login ?: ""
+            senha = usuario.senha ?: ""
+        }
+    }
 
     var nomeError by remember { mutableStateOf(false) }
     var cpfError by remember { mutableStateOf(false) }
@@ -88,7 +121,7 @@ fun CadastroPessoaScreen(
                     Icon(FontAwesomeIcons.Solid.AngleLeft, contentDescription = "Voltar", modifier = Modifier.size(24.dp))
                 }
                 Row {
-                    Text("Cadastrando um ", style = MaterialTheme.typography.h3)
+                    Text("Editando um ", style = MaterialTheme.typography.h3)
                     Text(pessoaType.displayName.lowercase(), style = MaterialTheme.typography.h3, color = MaterialTheme.colors.primary)
                 }
             }
@@ -246,7 +279,8 @@ fun CadastroPessoaScreen(
                             selectedValue = tipoSanguineo,
                             onValueChange = { tipoSanguineo = it },
                             placeholder = "Selecione o tipo sanguíneo",
-                            isError = tipoSanguineoError
+                            isError = tipoSanguineoError,
+                            isEnabled = false
                         )
                         HospitalSelect(
                             label = "Sexo",
@@ -258,15 +292,17 @@ fun CadastroPessoaScreen(
                         )
                         HospitalOutlinedTextField(
                             dataNascimento, "Data de nascimento", Modifier.weight(1f), maxLength = 8,
+
                             onValueChange = {
                                 dataNascimento = it
                                 dataNascimentoError = false
                             },
+                            isEnabled = false,
                             fieldType = InputType.DATE,
                             placeholder = "dd/MM/AAAA",
                             errorMessage = "Data inválida",
                             isError = dataNascimentoError,
-                            maxLines = 8
+                            maxLines = 8,
                         )
                     }
                     PessoaType.MEDICO -> {
@@ -469,31 +505,14 @@ fun CadastroPessoaScreen(
                                 onBack()
                             }
                         }
-                        JOptionPane.showMessageDialog(null, pessoaType.displayName + " cadastrado com sucesso!")
+                        JOptionPane.showMessageDialog(null, pessoaType.displayName + " editado com sucesso!")
                     }
 
                 },
                 shape = MaterialTheme.shapes.medium
             ) {
-                Text("Cadastrar ${pessoaType.displayName.lowercase()}")
+                Text("Editar ${pessoaType.displayName.lowercase()}")
             }
     })
-}
-
-fun parseDateFromRawInput(input: String): LocalDate? {
-    // Certifique-se de que o comprimento do input seja exatamente 8 (ddMMyyyy)
-    if (input.length != 8) return null
-
-    return try {
-        val day = input.substring(0, 2).toInt() // Pega os dois primeiros caracteres como dia
-        val month = input.substring(2, 4).toInt() // Os próximos dois caracteres como mês
-        val year = input.substring(4, 8).toInt() // Os últimos quatro caracteres como ano
-
-        // Retorna o LocalDate se a data for válida
-        LocalDate.of(year, month, day)
-    } catch (e: Exception) {
-        // Captura erros, como números inválidos
-        null
-    }
 }
 

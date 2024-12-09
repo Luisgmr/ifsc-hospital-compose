@@ -22,6 +22,7 @@ import com.luisgmr.ifsc.hospital.controller.LaboratorioController
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
+import com.luisgmr.ifsc.hospital.model.Pessoa
 import com.luisgmr.ifsc.hospital.screens.RegisterUserScreen
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import compose.icons.FontAwesomeIcons
@@ -30,7 +31,8 @@ import compose.icons.fontawesomeicons.solid.*
 import com.luisgmr.ifsc.hospital.navigation.NavigationHost
 import com.luisgmr.ifsc.hospital.navigation.composable
 import com.luisgmr.ifsc.hospital.navigation.rememberNavController
-import com.luisgmr.ifsc.hospital.view.*
+import com.luisgmr.ifsc.hospital.view.CadastroPessoaScreen
+import com.luisgmr.ifsc.hospital.view.PessoasCategoryScreen
 import java.awt.Dimension
 
 
@@ -140,6 +142,18 @@ fun App() {
                         val pessoaType = navController.getArgumentsForCurrentScreen()?.get("pessoaType") as? PessoaType
                             ?: PessoaType.PACIENTE
                         CadastroPessoaScreen(
+                            pessoaType = pessoaType,
+                            controller = PessoasCategoryController(),
+                            onBack = { navController.navigateBack() }
+                        )
+                    }
+                    composable(Screen.EDITAR_PESSOA) {
+                        val pessoaType = navController.getArgumentsForCurrentScreen()?.get("pessoaType") as? PessoaType
+                            ?: PessoaType.PACIENTE
+                        val pessoa = navController.getArgumentsForCurrentScreen()?.get("pessoa") as? Pessoa
+                            ?: Pessoa()
+                        PessoasEditScreen(
+                            pessoa,
                             pessoaType = pessoaType,
                             controller = PessoasCategoryController(),
                             onBack = { navController.navigateBack() }
