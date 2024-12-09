@@ -9,9 +9,8 @@ public class Exame {
 	public Exame() {
 	}
 	
-	public Exame(long id, String tituloExame, String tipoExame, String status) {
+	public Exame(String tituloExame, String tipoExame, String status) {
 		super();
-		this.id = id;
 		this.tituloExame = tituloExame;
 		this.tipoExame = tipoExame;
 		this.status = status;

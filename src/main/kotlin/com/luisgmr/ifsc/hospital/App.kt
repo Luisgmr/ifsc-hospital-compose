@@ -17,6 +17,7 @@ import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.controller.AcompanhanteController
 import com.luisgmr.ifsc.hospital.controller.AlaController
+import com.luisgmr.ifsc.hospital.controller.ExameController
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
@@ -34,7 +35,7 @@ import java.awt.Dimension
 
 enum class Screen {
     HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
-    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS, CADASTRO_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS, CADASTRO_ALA
+    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS, CADASTRO_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS, CADASTRO_ALA, EXAMES, CADASTRO_EXAME
 }
 
 @Composable
@@ -94,6 +95,12 @@ fun App() {
                                     label = { Text("Alas") }
                                 )
                                 HospitalNavigationRailItem(
+                                    selected = currentScreen == Screen.EXAMES,
+                                    onClick = { navController.navigate(Screen.EXAMES) },
+                                    icon = { Icon(FontAwesomeIcons.Solid.FileMedical, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                    label = { Text("Exames") }
+                                )
+                                HospitalNavigationRailItem(
                                     selected = currentScreen == Screen.BUSCAS,
                                     onClick = { navController.navigate(Screen.BUSCAS) },
                                     icon = { Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(32.dp)) },
@@ -131,7 +138,9 @@ fun App() {
                     composable(Screen.ACOMPANHANTES) { AcompanhanteScreen(AcompanhanteController(),navController, { navController.navigateBack() }) }
                     composable(Screen.CADASTRO_ACOMPANHANTE) { AcompanhanteRegisterScreen(AcompanhanteController(), onBack = { navController.navigateBack() }) }
                     composable(Screen.ALAS) { AlaScreen(AlaController(),navController, { navController.navigateBack() }) }
-                    composable(Screen.CADASTRO_ALA) { AlaRegisterScreen(controller = AlaController(), onBack = { navController.navigateBack() }
+                    composable(Screen.CADASTRO_ALA) { AlaRegisterScreen(controller = AlaController(), onBack = { navController.navigateBack() })}
+                    composable(Screen.EXAMES) { ExameScreen(ExameController(), navController, { navController.navigateBack() }) }
+                    composable(Screen.CADASTRO_EXAME) { ExameRegisterScreen(controller = ExameController(), onBack = { navController.navigateBack() }
                     )
                     }
                 }.build()
