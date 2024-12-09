@@ -18,6 +18,7 @@ import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
 import com.luisgmr.ifsc.hospital.controller.AcompanhanteController
 import com.luisgmr.ifsc.hospital.controller.AlaController
 import com.luisgmr.ifsc.hospital.controller.ExameController
+import com.luisgmr.ifsc.hospital.controller.LaboratorioController
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.controller.RegisterUserController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
@@ -35,7 +36,10 @@ import java.awt.Dimension
 
 enum class Screen {
     HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
-    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS, CADASTRO_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS, CADASTRO_ALA, EXAMES, CADASTRO_EXAME
+    PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS,
+    CADASTRO_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS,
+    CADASTRO_ALA, EXAMES, CADASTRO_EXAME, LABORATORIOS, CADASTRO_LABORATORIO
+
 }
 
 @Composable
@@ -101,6 +105,12 @@ fun App() {
                                     label = { Text("Exames") }
                                 )
                                 HospitalNavigationRailItem(
+                                    selected = currentScreen == Screen.LABORATORIOS,
+                                    onClick = { navController.navigate(Screen.LABORATORIOS) },
+                                    icon = { Icon(FontAwesomeIcons.Solid.Flask, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                    label = { Text("Laboratórios") }
+                                )
+                                HospitalNavigationRailItem(
                                     selected = currentScreen == Screen.BUSCAS,
                                     onClick = { navController.navigate(Screen.BUSCAS) },
                                     icon = { Icon(Icons.Filled.Search, contentDescription = null, modifier = Modifier.size(32.dp)) },
@@ -140,7 +150,9 @@ fun App() {
                     composable(Screen.ALAS) { AlaScreen(AlaController(),navController, { navController.navigateBack() }) }
                     composable(Screen.CADASTRO_ALA) { AlaRegisterScreen(controller = AlaController(), onBack = { navController.navigateBack() })}
                     composable(Screen.EXAMES) { ExameScreen(ExameController(), navController, { navController.navigateBack() }) }
-                    composable(Screen.CADASTRO_EXAME) { ExameRegisterScreen(controller = ExameController(), onBack = { navController.navigateBack() }
+                    composable(Screen.CADASTRO_EXAME) { ExameRegisterScreen(controller = ExameController(), onBack = { navController.navigateBack() })}
+                    composable(Screen.LABORATORIOS) { LaboratorioScreen(LaboratorioController(), navController, { navController.navigateBack() }) }
+                    composable(Screen.CADASTRO_LABORATORIO) { LaboratorioRegisterScreen(controller = LaboratorioController(), onBack = { navController.navigateBack() }
                     )
                     }
                 }.build()
