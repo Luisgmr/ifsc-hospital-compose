@@ -25,12 +25,11 @@ public class Atendimento {
 	public Atendimento() {
 	}
 
-	public Atendimento(long id, LocalDateTime dataHoraAtendimento, String pressao, String temperatura, String bpm,
+	public Atendimento(LocalDateTime dataHoraAtendimento, String pressao, String temperatura, String bpm,
 			String oximetria, String historicoDeDoencas, String alergias, String medicacoesEmUso, String anamnese,
 			String tipoAtendimento, String classificacao, String observacoes, String status, Paciente paciente,
 			Usuario usuario, Enfermeiro enfermeiro) {
 		super();
-		this.id = id;
 		this.dataHoraAtendimento = dataHoraAtendimento;
 		this.pressao = pressao;
 		this.temperatura = temperatura;

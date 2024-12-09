@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -13,8 +14,8 @@ import com.luisgmr.ifsc.hospital.Screen
 import com.luisgmr.ifsc.hospital.components.HospitalContent
 import com.luisgmr.ifsc.hospital.components.HospitalTextField
 import com.luisgmr.ifsc.hospital.components.SelectableButton
-import com.luisgmr.ifsc.hospital.controller.AcompanhanteController
-import com.luisgmr.ifsc.hospital.model.Acompanhante
+import com.luisgmr.ifsc.hospital.controller.AlaController
+import com.luisgmr.ifsc.hospital.model.Ala
 import com.luisgmr.ifsc.hospital.navigation.NavController
 import com.luisgmr.ifsc.hospital.themes.HospitalTheme
 import com.seanproctor.datatable.DataColumn
@@ -25,29 +26,25 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.AngleLeft
 import compose.icons.fontawesomeicons.solid.Search
 
-enum class SelectedButtonForAcompanhantes {
-    NOME, CPF
-}
 
 @Composable
-fun AcompanhanteScreen(
-    controller: AcompanhanteController = AcompanhanteController(),
+fun AlaScreen(
+    controller: AlaController = AlaController(),
     navController: NavController,
     onBack: () -> Unit
 ) {
-    val acompanhantes = remember { mutableStateListOf<Acompanhante>() }
-    val filteredAcompanhantes = remember { mutableStateListOf<Acompanhante>() }
-    val selectedButtonForAcompanhantes = remember { mutableStateOf(SelectedButtonForAcompanhantes.NOME) }
+    val alas = remember { mutableStateListOf<Ala>() }
+    val filteredAlas = remember { mutableStateListOf<Ala>() }
     var isLoading by remember { mutableStateOf(true) }
     var searchQuery by remember { mutableStateOf("") }
     var debounceQuery by remember { mutableStateOf("") }
 
-    // Load acompanhantes when the screen starts
+    // Load alas when the screen starts
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadAcompanhantes()
-        acompanhantes.clear()
-        acompanhantes.addAll(controller.getAcompanhantes())
+        controller.loadAlas()
+        alas.clear()
+        alas.addAll(controller.getAlas())
         isLoading = false
     }
 
@@ -60,14 +57,11 @@ fun AcompanhanteScreen(
     }
 
     // Filter logic
-    LaunchedEffect(debounceQuery, selectedButtonForAcompanhantes.value) {
-        filteredAcompanhantes.clear()
-        filteredAcompanhantes.addAll(
-            acompanhantes.filter { acompanhante ->
-                when (selectedButtonForAcompanhantes.value) {
-                    SelectedButtonForAcompanhantes.NOME -> acompanhante.nome.contains(debounceQuery, ignoreCase = true)
-                    SelectedButtonForAcompanhantes.CPF -> acompanhante.cpf.contains(debounceQuery, ignoreCase = true)
-                }
+    LaunchedEffect(debounceQuery) {
+        filteredAlas.clear()
+        filteredAlas.addAll(
+            alas.filter { ala ->
+                ala.descricao.contains(debounceQuery, ignoreCase = true)
             }
         )
     }
@@ -79,10 +73,10 @@ fun AcompanhanteScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 IconButton(onClick = onBack) {
-                    Icon(FontAwesomeIcons.Solid.AngleLeft, contentDescription = "Back", Modifier.size(24.dp))
+                    Icon(FontAwesomeIcons.Solid.AngleLeft, contentDescription = "Voltar", Modifier.size(24.dp))
                 }
                 Text(
-                    text = "Menu de Acompanhantes",
+                    text = "Menu de Alas",
                     style = MaterialTheme.typography.h3
                 )
             }
@@ -93,20 +87,10 @@ fun AcompanhanteScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    SelectableButton("Nome", { selectedButtonForAcompanhantes.value = SelectedButtonForAcompanhantes.NOME }, selectedButtonForAcompanhantes.value == SelectedButtonForAcompanhantes.NOME)
-                    SelectableButton("CPF", { selectedButtonForAcompanhantes.value = SelectedButtonForAcompanhantes.CPF }, selectedButtonForAcompanhantes.value == SelectedButtonForAcompanhantes.CPF)
-                }
-
                 HospitalTextField(
                     text = searchQuery,
                     onTextChange = { searchQuery = it },
-                    placeholder = when (selectedButtonForAcompanhantes.value) {
-                        SelectedButtonForAcompanhantes.NOME -> "Buscar por nome do acompanhante"
-                        SelectedButtonForAcompanhantes.CPF -> "Buscar por CPF do acompanhante"
-                    },
+                    placeholder = "Buscar por descrição",
                     modifier = Modifier.padding(16.dp),
                     icon = FontAwesomeIcons.Solid.Search,
                 )
@@ -119,9 +103,9 @@ fun AcompanhanteScreen(
             ) {
                 Text(
                     text = if (isLoading) {
-                        "Buscando acompanhantes..."
+                        "Buscando alas..."
                     } else {
-                        "${filteredAcompanhantes.size} acompanhantes encontrados"
+                        "${filteredAlas.size} alas encontradas"
                     },
                     style = MaterialTheme.typography.caption,
                 )
@@ -136,7 +120,7 @@ fun AcompanhanteScreen(
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
                 }
             } else {
-                // Tabela com cabeçalhos
+                // Data Table
                 Box {
                     Box(
                         modifier = Modifier
@@ -156,52 +140,38 @@ fun AcompanhanteScreen(
                         columns = listOf(
                             DataColumn {
                                 Text(
-                                    text = "Nome",
+                                    text = "Descrição",
                                     modifier = Modifier.offset(x = 16.dp),
-                                    color = Color.White
-                                )
-                            },
-                            DataColumn {
-                                Text(
-                                    text = "CPF",
-                                    modifier = Modifier.offset(x = 16.dp),
-                                    color = Color.White
-                                )
-                            },
-                            DataColumn {
-                                Text(
-                                    text = "Parentesco",
-                                    modifier = Modifier.offset(x = 16.dp),
-                                    color = Color.White
+                                    color = Color.White,
+                                    style = MaterialTheme.typography.body1
                                 )
                             },
                             DataColumn {
                                 Text(
                                     text = "Status",
                                     modifier = Modifier.offset(x = 16.dp),
-                                    color = Color.White
+                                    color = Color.White,
+                                    style = MaterialTheme.typography.body1
                                 )
                             },
                         ),
                         state = rememberPaginatedDataTableState(7),
                     ) {
-                        filteredAcompanhantes.forEach { acompanhante ->
+                        filteredAlas.forEach { ala ->
                             row {
                                 cell {
                                     Text(
-                                        text = acompanhante.nome ?: "",
+                                        text = ala.descricao ?: "",
                                         maxLines = 2,
                                         overflow = TextOverflow.Ellipsis
                                     )
                                 }
-                                cell { Text(acompanhante.cpf ?: "") }
-                                cell { Text(acompanhante.grauParentesco ?: "") }
-                                cell { Text(acompanhante.status ?: "") }
+                                cell { Text(ala.status ?: "") }
                             }
                         }
                     }
 
-                    // Linha separadora
+                // Linha separadora (opcional)
                     Box(
                         modifier = Modifier
                             .offset(y = 51.dp)
@@ -210,16 +180,20 @@ fun AcompanhanteScreen(
                             .background(Color.White)
                     )
 
-                    // Botão de cadastrar
-                    Button(
-                        onClick = {
-                            navController.navigate(Screen.CADASTRO_ACOMPANHANTE)
-                        },
-                        modifier = Modifier.align(Alignment.BottomStart),
-                        contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
-                        shape = MaterialTheme.shapes.medium,
+                // Botão de cadastrar
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.BottomStart
                     ) {
-                        Text("Cadastrar Acompanhante")
+                        Button(
+                            onClick = {
+                                navController.navigate(Screen.CADASTRO_ALA)
+                            },
+                            contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
+                            shape = MaterialTheme.shapes.medium,
+                        ) {
+                            Text("Cadastrar Ala")
+                        }
                     }
                 }
             }

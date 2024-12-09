@@ -6,9 +6,8 @@ public class Ala {
 	private String descricao;
 	private String status;
 	
-	public Ala(long id, String descricao, String status) {
+	public Ala(String descricao, String status) {
 		super();
-		this.id = id;
 		this.descricao = descricao;
 		this.status = status;
 	}
