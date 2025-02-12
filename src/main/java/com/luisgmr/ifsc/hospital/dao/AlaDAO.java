@@ -36,6 +36,7 @@ public class AlaDAO {
                         resultSet.getString("descricao"),
                         resultSet.getString("status")
                 );
+                ala.setId(resultSet.getLong("id"));
                 alas.add(ala);
             }
         } catch (SQLException e) {

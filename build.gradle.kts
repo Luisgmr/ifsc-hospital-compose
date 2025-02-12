@@ -12,6 +12,18 @@ version = "1.0-SNAPSHOT"
 repositories {
 }
 
+configurations.all {
+    resolutionStrategy {
+        eachDependency {
+            if (requested.group == "org.jetbrains.skiko") {
+                useVersion("0.8.18")
+            }
+        }
+        // Força explicitamente o runtime para Windows
+        force("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.8.18")
+    }
+}
+
 dependencies {
     // Note, if you develop a library, you should use compose.desktop.common.
     // compose.desktop.currentOs should be used in launcher-sourceSet

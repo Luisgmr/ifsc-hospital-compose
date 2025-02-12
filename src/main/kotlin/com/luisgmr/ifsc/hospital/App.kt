@@ -39,7 +39,7 @@ enum class Screen {
     HOME, PESSOAS, BUSCAS, USUARIO, REGISTRO_USUARIO,
     PACIENTES, MEDICOS, ENFERMEIROS, FARMACEUTICOS, USUARIOS,
     CADASTRO_PESSOA, EDITAR_PESSOA, ACOMPANHANTES, CADASTRO_ACOMPANHANTE, ALAS,
-    CADASTRO_ALA, EXAMES, CADASTRO_EXAME, LABORATORIOS, CADASTRO_LABORATORIO
+    CADASTRO_ALA, EXAMES, CADASTRO_EXAME, LABORATORIOS, CADASTRO_LABORATORIO, CADASTRO_QUARTO, QUARTOS
 
 }
 
@@ -100,6 +100,12 @@ fun App() {
                                     label = { Text("Alas") }
                                 )
                                 HospitalNavigationRailItem(
+                                    selected = currentScreen == Screen.QUARTOS,
+                                    onClick = { navController.navigate(Screen.QUARTOS) },
+                                    icon = { Icon(FontAwesomeIcons.Solid.Bed, contentDescription = null, modifier = Modifier.size(32.dp)) },
+                                    label = { Text("Quartos") }
+                                )
+                                HospitalNavigationRailItem(
                                     selected = currentScreen == Screen.EXAMES,
                                     onClick = { navController.navigate(Screen.EXAMES) },
                                     icon = { Icon(FontAwesomeIcons.Solid.FileMedical, contentDescription = null, modifier = Modifier.size(32.dp)) },
@@ -152,6 +158,8 @@ fun App() {
                             onBack = { navController.navigateBack() }
                         )
                     }
+                    composable(Screen.QUARTOS) { QuartoScreen(onBack = { navController.navigateBack() }, navigateToRegister = { navController.navigate(Screen.CADASTRO_QUARTO) }) }
+                    composable(Screen.CADASTRO_QUARTO) { QuartoRegisterScreen(onBack = { navController.navigateBack() }) }
                     composable(Screen.ACOMPANHANTES) { AcompanhanteScreen(AcompanhanteController(),navController, { navController.navigateBack() }) }
                     composable(Screen.CADASTRO_ACOMPANHANTE) { AcompanhanteRegisterScreen(AcompanhanteController(), onBack = { navController.navigateBack() }) }
                     composable(Screen.ALAS) { AlaScreen(AlaController(),navController, { navController.navigateBack() }) }
@@ -159,9 +167,7 @@ fun App() {
                     composable(Screen.EXAMES) { ExameScreen(ExameController(), navController, { navController.navigateBack() }) }
                     composable(Screen.CADASTRO_EXAME) { ExameRegisterScreen(controller = ExameController(), onBack = { navController.navigateBack() })}
                     composable(Screen.LABORATORIOS) { LaboratorioScreen(LaboratorioController(), navController, { navController.navigateBack() }) }
-                    composable(Screen.CADASTRO_LABORATORIO) { LaboratorioRegisterScreen(controller = LaboratorioController(), onBack = { navController.navigateBack() }
-                    )
-                    }
+                    composable(Screen.CADASTRO_LABORATORIO) { LaboratorioRegisterScreen(controller = LaboratorioController(), onBack = { navController.navigateBack() }) }
                 }.build()
             }
         }
