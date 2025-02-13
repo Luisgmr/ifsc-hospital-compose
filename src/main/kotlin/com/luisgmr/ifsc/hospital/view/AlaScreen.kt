@@ -113,7 +113,6 @@ fun AlaScreen(
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
                 }
             } else {
-                // Data Table
                 Box {
                     Box(
                         modifier = Modifier
@@ -163,7 +162,6 @@ fun AlaScreen(
                             }
                         }
                     }
-
                     Box(
                         modifier = Modifier
                             .offset(y = 51.dp)
@@ -180,7 +178,7 @@ fun AlaScreen(
                         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
                         shape = MaterialTheme.shapes.medium,
                     ) {
-                        Text("Cadastrar quarto")
+                        Text("Cadastrar ala")
                     }
                 }
             }

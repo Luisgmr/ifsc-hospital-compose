@@ -43,8 +43,10 @@ fun QuartoScreen(
     }
 
     LaunchedEffect(searchQuery) {
+        isLoading = true
         kotlinx.coroutines.delay(500)
         debounceQuery = searchQuery
+        isLoading = false
     }
 
     LaunchedEffect(debounceQuery) {
@@ -57,7 +59,6 @@ fun QuartoScreen(
     HospitalContent(content = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(16.dp)
             ) {
                 IconButton(onClick = onBack) {
                     Icon(
@@ -164,13 +165,11 @@ fun QuartoScreen(
                     )
                     Button(
                         onClick = navigateToRegister,
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(16.dp),
+                        modifier = Modifier.align(Alignment.BottomStart),
                         contentPadding = PaddingValues(vertical = 12.dp, horizontal = 32.dp),
                         shape = MaterialTheme.shapes.medium,
                     ) {
-                        Text("Cadastrar Quarto")
+                        Text("Cadastrar quarto")
                     }
                 }
             }
