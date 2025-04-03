@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.luisgmr.ifsc.hospital.Screen
 import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalContent
+import com.luisgmr.ifsc.hospital.controller.ExameController
 import com.luisgmr.ifsc.hospital.controller.PessoasCategoryController
 import com.luisgmr.ifsc.hospital.enums.PessoaType
 import com.luisgmr.ifsc.hospital.model.ClasseDados
@@ -39,7 +40,9 @@ import java.util.*
 @Composable
 fun HomeScreen(navController: NavController) {
     val pessoasCategoryController = PessoasCategoryController()
+    val examesController = ExameController()
     pessoasCategoryController.loadPessoas(PessoaType.PACIENTE)
+    examesController.loadExames()
 
     val currentDate = LocalDate.now()
     val weekDayFormat = DateTimeFormatter.ofPattern("EEEE, ", Locale("pt", "BR"))
@@ -68,7 +71,7 @@ fun HomeScreen(navController: NavController) {
                 ) {
                     Row {
                         Text("Bem-vindo, ", color = Color.White, style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.Normal))
-                        Text("Dr Wendel Bezerra!", color = Color.White, style = MaterialTheme.typography.h3)
+                        Text("Dr Roberval Silva!", color = Color.White, style = MaterialTheme.typography.h3)
                     }
                     Text("Tenha um ótimo dia de trabalho!", color = Color.White, style = MaterialTheme.typography.subtitle1)
                 }
@@ -134,9 +137,9 @@ fun HomeScreen(navController: NavController) {
                                 tint = Color.White)
                         }
                         Spacer(Modifier.size(8.dp))
-                        Text("Injeções", style = MaterialTheme.typography.subtitle2, color = Color.Gray)
+                        Text("Exames", style = MaterialTheme.typography.subtitle2, color = Color.Gray)
                         Spacer(Modifier.size(4.dp))
-                        Text("0", style = MaterialTheme.typography.h3)
+                        Text(ClasseDados.getInstance().exames.size.toString(), style = MaterialTheme.typography.h3)
                     }
                 }
                 Row(

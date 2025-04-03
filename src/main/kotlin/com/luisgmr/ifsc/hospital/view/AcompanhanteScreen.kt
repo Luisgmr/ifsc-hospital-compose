@@ -24,6 +24,7 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.AngleLeft
 import compose.icons.fontawesomeicons.solid.Search
+import javax.swing.JOptionPane
 
 enum class SelectedButtonForAcompanhantes {
     NOME, CPF
@@ -128,7 +129,6 @@ fun AcompanhanteScreen(
             }
             Spacer(Modifier.size(8.dp))
 
-            // Main Content
             if (isLoading) {
                 Box(
                     modifier = Modifier.fillMaxSize()
@@ -136,7 +136,6 @@ fun AcompanhanteScreen(
                     CircularProgressIndicator(Modifier.align(Alignment.Center))
                 }
             } else {
-                // Tabela com cabeçalhos
                 Box {
                     Box(
                         modifier = Modifier
@@ -187,6 +186,9 @@ fun AcompanhanteScreen(
                     ) {
                         filteredAcompanhantes.forEach { acompanhante ->
                             row {
+                                onClick = {
+                                    JOptionPane.showMessageDialog(null, "iuuuiuu")
+                                }
                                 cell {
                                     Text(
                                         text = acompanhante.nome ?: "",
@@ -200,8 +202,6 @@ fun AcompanhanteScreen(
                             }
                         }
                     }
-
-                    // Linha separadora
                     Box(
                         modifier = Modifier
                             .offset(y = 51.dp)
@@ -209,8 +209,6 @@ fun AcompanhanteScreen(
                             .height(2.dp)
                             .background(Color.White)
                     )
-
-                    // Botão de cadastrar
                     Button(
                         onClick = {
                             navController.navigate(Screen.CADASTRO_ACOMPANHANTE)

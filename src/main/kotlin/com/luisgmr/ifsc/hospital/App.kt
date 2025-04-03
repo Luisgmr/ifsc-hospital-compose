@@ -177,6 +177,7 @@ fun App() {
 fun main() = application {
     Window(
         onCloseRequest = ::exitApplication,
+        title = "IFSC Hospital",
         resizable = true
     ) {
         this.window.minimumSize = Dimension(1000, 750)

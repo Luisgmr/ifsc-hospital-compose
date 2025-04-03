@@ -1,6 +1,7 @@
 package com.luisgmr.ifsc.hospital.view
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -22,7 +23,7 @@ fun AcompanhanteRegisterScreen(
     var cpf by remember { mutableStateOf("") }
     var fone by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
-    var status by remember { mutableStateOf("Ativo") } // Default value
+    var status by remember { mutableStateOf("Ativo") }
     var expanded by remember { mutableStateOf(false) }
     var message by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
@@ -50,6 +51,7 @@ fun AcompanhanteRegisterScreen(
             OutlinedTextField(
                 value = nome,
                 onValueChange = { nome = it },
+                shape = MaterialTheme.shapes.medium,
                 label = { Text("Nome") },
                 modifier = Modifier.fillMaxWidth()
             )

@@ -32,8 +32,8 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation("mysql:mysql-connector-java:8.0.27")
     implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
-    implementation("com.seanproctor:data-table-material3:latest.release")
-    implementation("com.seanproctor:data-table:latest.release")
+    implementation("com.seanproctor:data-table-material3:0.10.1")
+    implementation("com.seanproctor:data-table:0.10.1")
 }
 
 compose.resources {
