@@ -34,6 +34,15 @@ dependencies {
     implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.1")
     implementation("com.seanproctor:data-table-material3:0.10.1")
     implementation("com.seanproctor:data-table:0.10.1")
+
+    // Hibernate/JPA
+    implementation("org.hibernate:hibernate-core:5.6.10.Final")
+    implementation("javax.persistence:javax.persistence-api:2.2")
+    implementation("org.hibernate:hibernate-entitymanager:5.6.10.Final") // Se necessário
+
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.24")  // Usado para evitar a geração de código boilerplate
+    annotationProcessor("org.projectlombok:lombok:1.18.24")  // Para usar o Lombok com a anotação de processamento
 }
 
 compose.resources {
