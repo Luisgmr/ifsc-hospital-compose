@@ -43,3 +43,8 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/local.properties
+/composeApp/src/.idea/workspace.xml
+/composeApp/src/.idea/*
+/composeApp/src/.idea
+/composeApp/src/.idea/
