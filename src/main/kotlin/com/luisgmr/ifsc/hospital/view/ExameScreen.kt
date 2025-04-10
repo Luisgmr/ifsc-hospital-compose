@@ -45,9 +45,9 @@ fun ExameScreen(
     // Load exames when the screen starts
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadExames()
+        controller.load()
         exames.clear()
-        exames.addAll(controller.getExames())
+        exames.addAll(controller.all)
         isLoading = false
     }
 

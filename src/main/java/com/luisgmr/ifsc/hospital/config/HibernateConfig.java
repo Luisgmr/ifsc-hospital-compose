@@ -2,35 +2,22 @@ package com.luisgmr.ifsc.hospital.config;
 
 import lombok.Getter;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.Metadata;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateConfig {
     @Getter
-    private static SessionFactory sessionFactory;
+    private static final SessionFactory sessionFactory = buildSessionFactory();
 
-    static {
+    private static SessionFactory buildSessionFactory() {
         try {
-            StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure("hibernate.cfg.xml")
-                    .build();
-
-            Metadata metadata = new MetadataSources(registry)
-                    .getMetadataBuilder()
-                    .build();
-
-            sessionFactory = metadata.getSessionFactoryBuilder().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ExceptionInInitializerError("Falha na inicialização do Hibernate");
+            return new Configuration().configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            System.err.println("Falha na criação do SessionFactory: " + ex);
+            throw new ExceptionInInitializerError(ex);
         }
     }
 
     public static void shutdown() {
-        if (sessionFactory != null) {
-            sessionFactory.close();
-        }
+        getSessionFactory().close();
     }
 }

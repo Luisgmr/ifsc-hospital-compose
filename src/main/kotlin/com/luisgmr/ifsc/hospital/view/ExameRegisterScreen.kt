@@ -98,13 +98,13 @@ fun ExameRegisterScreen(
                         isError = true
                         message = "Por favor, preencha todos os campos obrigatórios."
                     } else {
-                        val exame = Exame(
-                            tituloExame,
-                            tipoExame,
-                            status
-                        )
+                        val exame = Exame().apply {
+                            this.tituloExame = tituloExame
+                            this.tipoExame = tipoExame
+                            this.status = status
+                        }
                         try {
-                            controller.saveExame(exame)
+                            controller.save(exame)
                             message = "Exame salvo com sucesso!"
                         } catch (e: Exception) {
                             isError = true

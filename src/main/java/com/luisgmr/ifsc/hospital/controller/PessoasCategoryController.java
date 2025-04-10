@@ -1,21 +1,17 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.OldPessoasCategoryDAO;
+import com.luisgmr.ifsc.hospital.dao.PessoaDAO;
 import com.luisgmr.ifsc.hospital.enums.PessoaType;
 import com.luisgmr.ifsc.hospital.model.*;
-
 import java.util.List;
 
 public class PessoasCategoryController {
-    private final OldPessoasCategoryDAO dao;
 
-    public PessoasCategoryController() {
-        this.dao = new OldPessoasCategoryDAO();
-    }
+    private final PessoaDAO pessoaDAO = new PessoaDAO();
 
-    public void loadPessoas(PessoaType type) {
+    public void load(PessoaType type) {
         ClasseDados dados = ClasseDados.getInstance();
-        List<? extends Pessoa> pessoas = (List<? extends Pessoa>) dao.getAllPessoas(type);
+        List<? extends Pessoa> pessoas = pessoaDAO.findAllByType(type);
 
         switch (type) {
             case PACIENTE -> {
@@ -41,29 +37,30 @@ public class PessoasCategoryController {
         }
     }
 
-    public Pessoa getPessoaByCPF(String cpf, PessoaType type) {
-        return dao.getPessoaByCPF(cpf, type);
-    }
-
-    /**
-     * Método para salvar uma pessoa no banco de dados.
-     * @param pessoa Objeto genérico que pode ser Paciente, Medico, Enfermeiro, etc.
-     */
-    public void savePessoa(Pessoa pessoa) {
+    public void save(Pessoa pessoa) {
         try {
-            dao.insertPessoa(pessoa);
+            pessoaDAO.save(pessoa);
             System.out.println(pessoa.getNome() + " foi inserido(a) com sucesso!");
         } catch (Exception e) {
             System.err.println("Erro ao salvar a pessoa: " + e.getMessage());
         }
     }
 
-    public void updatePessoa(String cpf, Pessoa pessoa, PessoaType pessoaType) {
-        dao.updatePessoa(cpf, pessoa, pessoaType);
+    public void updatePessoa(String cpfCnpj, Pessoa pessoa, PessoaType type) {
+        pessoaDAO.updatePessoa(cpfCnpj, pessoa, type);
     }
 
-    public void deletePessoa(String cpf, PessoaType pessoaType) {
-        dao.deletePessoa(cpf, pessoaType);
+    public void delete(Pessoa pessoa) {
+        pessoaDAO.deleteById(pessoa.getId(), pessoa.getClass());
+    }
+
+    public Pessoa getPessoaByCpf(String cpf, PessoaType type) {
+        try {
+            return pessoaDAO.findByCpfAndType(cpf, type);
+        } catch (Exception e) {
+            System.err.println("Erro ao buscar pessoa por CPF: " + e.getMessage());
+            return null;
+        }
     }
 
 }

@@ -46,7 +46,6 @@ enum class Screen {
 
 @Composable
 fun App() {
-    HibernateConfig.getSessionFactory()
     val screens = Screen.values().toList()
     val navController by rememberNavController(Screen.HOME)
     val currentScreen by remember { navController.currentScreen }

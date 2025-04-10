@@ -455,15 +455,29 @@ fun PessoasEditScreen(
 
                         if (!hasErrors) {
                             when (pessoaType) {
+
                                 PessoaType.PACIENTE -> {
                                     val parsedDate = parseDateFromRawInput(dataNascimento)
                                     if (parsedDate != null) {
-                                        val paciente = Paciente(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                            tipoSanguineo,
-                                            sexo,
-                                            nome,
-                                            parsedDate
-                                        )
+                                        val paciente = Paciente().apply {
+                                            this.nome = nome
+                                            this.fone1 = fone1
+                                            this.fone2 = fone2
+                                            this.email = email
+                                            this.cpfCnpj = cpf
+                                            this.rgInscricaoEstadual = rg
+                                            this.endereco = endereco
+                                            this.cep = cep
+                                            this.cidade = cidade
+                                            this.uf = uf
+                                            this.bairro = bairro
+                                            this.logradouro = logradouro
+                                            this.complemento = complemento
+
+                                            this.dataNascimento = parsedDate
+                                            this.tipoSanguineo = tipoSanguineo
+                                            this.sexo = sexo
+                                        }
                                         controller.updatePessoa(pessoa.cpfCnpj, paciente, pessoaType)
                                         onBack()
                                     } else {
@@ -471,41 +485,93 @@ fun PessoasEditScreen(
                                     }
                                 }
                                 PessoaType.MEDICO -> {
-                                    val medico = Medico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                        crm,
-                                        senha,
-                                        login,
-                                        nome
-                                    )
+                                    val medico = Medico().apply {
+                                        this.nome = nome
+                                        this.fone1 = fone1
+                                        this.fone2 = fone2
+                                        this.email = email
+                                        this.cpfCnpj = cpf
+                                        this.rgInscricaoEstadual = rg
+                                        this.endereco = endereco
+                                        this.cep = cep
+                                        this.cidade = cidade
+                                        this.uf = uf
+                                        this.bairro = bairro
+                                        this.logradouro = logradouro
+                                        this.complemento = complemento
+
+                                        this.crm = crm
+                                        this.senha = senha
+                                        this.login = login
+                                    }
                                     controller.updatePessoa(pessoa.cpfCnpj, medico, pessoaType)
                                     onBack()
                                 }
                                 PessoaType.ENFERMEIRO -> {
-                                    val enfermeiro = Enfermeiro(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                        cre,
-                                        senha,
-                                        login,
-                                        nome
-                                    )
+                                    val enfermeiro = Enfermeiro().apply {
+                                        this.nome = nome
+                                        this.fone1 = fone1
+                                        this.fone2 = fone2
+                                        this.email = email
+                                        this.cpfCnpj = cpf
+                                        this.rgInscricaoEstadual = rg
+                                        this.endereco = endereco
+                                        this.cep = cep
+                                        this.cidade = cidade
+                                        this.uf = uf
+                                        this.bairro = bairro
+                                        this.logradouro = logradouro
+                                        this.complemento = complemento
+
+                                        this.cre = cre
+                                        this.senha = senha
+                                        this.login = login
+                                    }
                                     controller.updatePessoa(pessoa.cpfCnpj, enfermeiro, pessoaType)
                                     onBack()
                                 }
                                 PessoaType.FARMACEUTICO -> {
-                                    val farmaceutico = Farmaceutico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                        cfr,
-                                        senha,
-                                        login,
-                                        nome
-                                    )
+                                    val farmaceutico = Farmaceutico().apply {
+                                        this.nome = nome
+                                        this.fone1 = fone1
+                                        this.fone2 = fone2
+                                        this.email = email
+                                        this.cpfCnpj = cpf
+                                        this.rgInscricaoEstadual = rg
+                                        this.endereco = endereco
+                                        this.cep = cep
+                                        this.cidade = cidade
+                                        this.uf = uf
+                                        this.bairro = bairro
+                                        this.logradouro = logradouro
+                                        this.complemento = complemento
+
+                                        this.cfr = cre
+                                        this.senha = senha
+                                        this.login = login
+                                    }
                                     controller.updatePessoa(pessoa.cpfCnpj, farmaceutico, pessoaType)
                                     onBack()
                                 }
                                 PessoaType.USUARIO -> {
-                                    val usuario = Usuario(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                        login,
-                                        senha,
-                                        nome
-                                    )
+                                    val usuario = Usuario().apply {
+                                        this.nome = nome
+                                        this.fone1 = fone1
+                                        this.fone2 = fone2
+                                        this.email = email
+                                        this.cpfCnpj = cpf
+                                        this.rgInscricaoEstadual = rg
+                                        this.endereco = endereco
+                                        this.cep = cep
+                                        this.cidade = cidade
+                                        this.uf = uf
+                                        this.bairro = bairro
+                                        this.logradouro = logradouro
+                                        this.complemento = complemento
+
+                                        this.login = login
+                                        this.senha = senha
+                                    }
                                     controller.updatePessoa(pessoa.cpfCnpj, usuario, pessoaType)
                                     onBack()
                                 }
@@ -523,7 +589,7 @@ fun PessoasEditScreen(
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error),
                     onClick = {
-                        controller.deletePessoa(pessoa.cpfCnpj, pessoaType)
+                        controller.delete(pessoa)
                         JOptionPane.showMessageDialog(null, "$pessoaType excluído com sucesso!")
                         onBack()
                     }

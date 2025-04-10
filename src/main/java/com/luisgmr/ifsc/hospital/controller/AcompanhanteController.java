@@ -1,39 +1,26 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.OldAcompanhanteDAO;
+import com.luisgmr.ifsc.hospital.dao.AcompanhanteDAO;
 import com.luisgmr.ifsc.hospital.model.Acompanhante;
 import com.luisgmr.ifsc.hospital.model.ClasseDados;
-
 import java.util.List;
 
 public class AcompanhanteController {
 
-    private final OldAcompanhanteDAO oldAcompanhanteDAO;
+    private final AcompanhanteDAO acompanhanteDAO = new AcompanhanteDAO();
 
-    public AcompanhanteController() {
-        this.oldAcompanhanteDAO = new OldAcompanhanteDAO();
-    }
-
-    /**
-     * Salva um acompanhante no banco de dados.
-     *
-     * @param acompanhante Objeto contendo os dados do acompanhante.
-     */
-    public void saveAcompanhante(Acompanhante acompanhante) {
+    public void save(Acompanhante acompanhante) {
         try {
-            oldAcompanhanteDAO.saveAcompanhante(acompanhante);
+            acompanhanteDAO.save(acompanhante);
             System.out.println(acompanhante.getNome() + " foi salvo com sucesso!");
         } catch (Exception e) {
             System.err.println("Erro ao salvar o acompanhante: " + e.getMessage());
         }
     }
 
-    /**
-     * Carrega todos os acompanhantes do banco de dados e atualiza o cache local.
-     */
-    public void loadAcompanhantes() {
+    public void load() {
         try {
-            List<Acompanhante> acompanhantes = oldAcompanhanteDAO.getAllAcompanhantes();
+            List<Acompanhante> acompanhantes = acompanhanteDAO.getAll();
             ClasseDados dados = ClasseDados.getInstance();
             dados.acompanhantes.clear();
             dados.acompanhantes.addAll(acompanhantes);
@@ -42,7 +29,8 @@ public class AcompanhanteController {
             System.err.println("Erro ao carregar acompanhantes: " + e.getMessage());
         }
     }
-    public List<Acompanhante> getAcompanhantes() {
+
+    public List<Acompanhante> getAll() {
         return ClasseDados.getInstance().acompanhantes;
     }
 }

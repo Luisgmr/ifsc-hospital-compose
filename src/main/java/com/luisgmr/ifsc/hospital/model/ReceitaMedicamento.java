@@ -1,11 +1,6 @@
 package com.luisgmr.ifsc.hospital.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,22 +12,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Table(name = "receita_medicamento")
 public class ReceitaMedicamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    public long id;
 
-    private String prescricao;
-    private String status;
+    public String prescricao;
+    public String status;
 
     @ManyToOne
     @JoinColumn(name = "receita_id")
-    private Receita receita;
+    public Receita receita;
 
     @ManyToOne
     @JoinColumn(name = "medicamento_id")
-    private Medicamento medicamento;
+    public Medicamento medicamento;
 
 }

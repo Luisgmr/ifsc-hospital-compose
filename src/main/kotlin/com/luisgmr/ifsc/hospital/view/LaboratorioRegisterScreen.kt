@@ -98,13 +98,13 @@ fun LaboratorioRegisterScreen(
                         isError = true
                         message = "Por favor, preencha todos os campos obrigatórios."
                     } else {
-                        val laboratorio = Laboratorio(
-                            nomeFantasia,
-                            contato,
-                            status
-                        )
+                        val laboratorio = Laboratorio().apply {
+                            this.nomeFantasia = nomeFantasia
+                            this.contato = contato
+                            this.status = status
+                        }
                         try {
-                            controller.saveLaboratorio(laboratorio)
+                            controller.save(laboratorio)
                             message = "Laboratório salvo com sucesso!"
                         } catch (e: Exception) {
                             isError = true

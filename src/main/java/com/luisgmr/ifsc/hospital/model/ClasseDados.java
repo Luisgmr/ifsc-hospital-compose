@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ClasseDados {
 
-    private static ClasseDados instance;
+    public static ClasseDados instance;
 
     public List<Usuario> usuarios = new ArrayList<>();
     public List<Paciente> pacientes = new ArrayList<>();

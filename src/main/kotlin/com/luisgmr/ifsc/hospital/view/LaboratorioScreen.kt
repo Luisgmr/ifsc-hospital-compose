@@ -45,9 +45,9 @@ fun LaboratorioScreen(
     // Load laboratorios when the screen starts
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadLaboratorios()
+        controller.load()
         laboratorios.clear()
-        laboratorios.addAll(controller.getLaboratorios())
+        laboratorios.addAll(controller.all)
         isLoading = false
     }
 

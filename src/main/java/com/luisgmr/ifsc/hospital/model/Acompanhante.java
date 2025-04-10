@@ -6,26 +6,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
+@Table(name = "acompanhante")
 public class Acompanhante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    public long id;
 
-    private String nome;
-    private String grauParentesco;
-    private String cpf;
-    private String fone;
-    private String email;
-    private String status;
+    public String nome;
+    public String grauParentesco;
+    public String cpf;
+    public String fone;
+    public String email;
+    public String status;
 }

@@ -1,9 +1,6 @@
 package com.luisgmr.ifsc.hospital.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,14 +12,15 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "medicamento")
 public class Medicamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    public long id;
 
-    private String descricaoMedicamento;
-    private String principioAtivo;
-    private float qtdMinima;
-    private String status;
+    public String descricaoMedicamento;
+    public String principioAtivo;
+    public float qtdMinima;
+    public String status;
         
 }

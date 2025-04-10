@@ -104,14 +104,13 @@ fun AlaRegisterScreen(
                         message = "Por favor, preencha todos os campos obrigatórios."
                     } else {
                         // Criação do objeto Ala
-                        val ala = Ala(
-                            descricao,
-                            status
-                        )
-
+                        val ala = Ala().apply {
+                            this.descricao = descricao
+                            this.status = status
+                        }
                         try {
                             // Chama o método de salvar no controller
-                            controller.saveAla(ala)
+                            controller.save(ala)
                             message = "Ala salva com sucesso!"
                         } catch (e: Exception) {
                             isError = true

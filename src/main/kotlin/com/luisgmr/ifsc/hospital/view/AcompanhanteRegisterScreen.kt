@@ -127,16 +127,16 @@ fun AcompanhanteRegisterScreen(
                         isError = true
                         message = "Por favor, preencha todos os campos obrigatórios."
                     } else {
-                        val acompanhante = Acompanhante(
-                            nome,
-                            grauParentesco,
-                            cpf,
-                            fone,
-                            email,
-                            status
-                        )
+                        val acompanhante = Acompanhante().apply {
+                            this.nome = nome
+                            this.grauParentesco = grauParentesco
+                            this.cpf = cpf
+                            this.fone = fone
+                            this.email = email
+                            this.status = status
+                        }
                         try {
-                            controller.saveAcompanhante(acompanhante)
+                            controller.save(acompanhante)
                             message = "Acompanhante salvo com sucesso!"
                         } catch (e: Exception) {
                             isError = true

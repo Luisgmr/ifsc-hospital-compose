@@ -2,12 +2,7 @@ package com.luisgmr.ifsc.hospital.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,22 +14,23 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "consulta_exame")
 public class ConsultaExame {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private LocalDateTime dataHoraExame;
-	private String analiseExame;
-	private String imagemExame;
-	private String status;
+	public long id;
+	public LocalDateTime dataHoraExame;
+	public String analiseExame;
+	public String imagemExame;
+	public String status;
 	@ManyToOne
 	@JoinColumn(name = "consulta_id")
-	private Consulta consulta;
+	public Consulta consulta;
 
 	@ManyToOne
 	@JoinColumn(name = "exame_id")
-	private Exame exame;
+	public Exame exame;
 
 	
 }

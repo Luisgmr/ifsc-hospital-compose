@@ -121,7 +121,7 @@ fun RegisterUserScreen(controller: RegisterUserController) {
 
             Button(
                 onClick = {
-                    controller.registerUser(userType, nome, login, senha, crm, cre, cfr)
+                    controller.register(userType, nome, login, senha, crm, cre, cfr)
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {

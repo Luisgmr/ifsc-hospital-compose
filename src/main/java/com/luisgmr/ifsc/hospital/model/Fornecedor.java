@@ -1,8 +1,10 @@
 package com.luisgmr.ifsc.hospital.model;
 
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,11 +16,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@DiscriminatorValue("FORNECEDOR")
 @PrimaryKeyJoinColumn(name = "pessoa_id")
 
 public class Fornecedor extends Pessoa{
 
-	private Integer nomeFantasia;
-	private Integer contato;
+	public Integer nomeFantasia;
+	public Integer contato;
 	
 }

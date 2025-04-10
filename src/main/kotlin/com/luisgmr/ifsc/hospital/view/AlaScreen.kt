@@ -41,9 +41,9 @@ fun AlaScreen(
 
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadAlas()
+        controller.load()
         alas.clear()
-        alas.addAll(controller.getAlas())
+        alas.addAll(controller.all)
         isLoading = false
     }
 

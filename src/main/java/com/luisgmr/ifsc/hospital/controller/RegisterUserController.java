@@ -1,18 +1,14 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.OldRegisterUserDAO;
+import com.luisgmr.ifsc.hospital.dao.RegisterUserDAO;
 import com.luisgmr.ifsc.hospital.enums.UserType;
 import com.luisgmr.ifsc.hospital.model.*;
 
 public class RegisterUserController {
 
-    private final OldRegisterUserDAO oldRegisterUserDAO;
+    private final RegisterUserDAO registerUserDAO = new RegisterUserDAO();
 
-    public RegisterUserController() {
-        this.oldRegisterUserDAO = new OldRegisterUserDAO();
-    }
-
-    public boolean registerUser(
+    public boolean register(
             UserType userType,
             String nome,
             String login,
@@ -21,62 +17,69 @@ public class RegisterUserController {
             String cre,
             String cfr
     ) {
-        // Criação do usuário conforme o tipo selecionado
-        Object user;
-        switch (userType) {
-            case USUARIO:
-                user = new Usuario();
-                ((Usuario) user).setNome(nome);
-                ((Usuario) user).setNomeSocial(nome);
-                ((Usuario) user).setLogin(login);
-                ((Usuario) user).setSenha(senha);
-                break;
-            case MEDICO:
-                user = new Medico();
-                ((Medico) user).setNomeSocial(nome);
-                ((Medico) user).setLogin(login);
-                ((Medico) user).setSenha(senha);
-                ((Medico) user).setCrm(crm);
-                break;
-            case ENFERMEIRO:
-                user = new Enfermeiro();
-                ((Enfermeiro) user).setNomeSocial(nome);
-                ((Enfermeiro) user).setLogin(login);
-                ((Enfermeiro) user).setSenha(senha);
-                ((Enfermeiro) user).setCre(cre);
-                break;
-            case FARMACEUTICO:
-                user = new Farmaceutico();
-                ((Farmaceutico) user).setNomeSocial(nome);
-                ((Farmaceutico) user).setLogin(login);
-                ((Farmaceutico) user).setSenha(senha);
-                ((Farmaceutico) user).setCfr(cfr);
-                break;
-            default:
-                throw new IllegalArgumentException("Tipo de usuário inválido");
-        }
-
-        if (oldRegisterUserDAO.registerUser(user)) {
-            addUserToClasseDados(user);
+        try {
+            Object user = createUser(userType, nome, login, senha, crm, cre, cfr);
+            registerUserDAO.registerUser(user);
+            addToCache(user);
             System.out.println("Usuário registrado com sucesso!");
             return true;
-        } else {
-            System.out.println("Ocorreu um erro ao registrar o usuário.");
+        } catch (Exception e) {
+            System.err.println("Erro ao registrar usuário: " + e.getMessage());
             return false;
         }
     }
 
-    private void addUserToClasseDados(Object user) {
-        ClasseDados classeDados = ClasseDados.getInstance();
+    private Object createUser(UserType type, String nome, String login, String senha,
+                              String crm, String cre, String cfr) {
+        return switch (type) {
+            case USUARIO -> createUsuario(nome, login, senha);
+            case MEDICO -> createMedico(nome, login, senha, crm);
+            case ENFERMEIRO -> createEnfermeiro(nome, login, senha, cre);
+            case FARMACEUTICO -> createFarmaceutico(nome, login, senha, cfr);
+        };
+    }
 
-        if (user instanceof Usuario) {
-            classeDados.usuarios.add((Usuario) user);
-        } else if (user instanceof Medico) {
-            classeDados.medicos.add((Medico) user);
-        } else if (user instanceof Enfermeiro) {
-            classeDados.enfermeiros.add((Enfermeiro) user);
-        } else if (user instanceof Farmaceutico) {
-            classeDados.farmaceuticos.add((Farmaceutico) user);
-        }
+    private Usuario createUsuario(String nome, String login, String senha) {
+        Usuario usuario = new Usuario();
+        usuario.setNome(nome);
+        usuario.setNomeSocial(nome);
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+        return usuario;
+    }
+
+    private Medico createMedico(String nome, String login, String senha, String crm) {
+        Medico medico = new Medico();
+        medico.setNomeSocial(nome);
+        medico.setLogin(login);
+        medico.setSenha(senha);
+        medico.setCrm(crm);
+        return medico;
+    }
+
+    private Enfermeiro createEnfermeiro(String nome, String login, String senha, String cre) {
+        Enfermeiro enfermeiro = new Enfermeiro();
+        enfermeiro.setNomeSocial(nome);
+        enfermeiro.setLogin(login);
+        enfermeiro.setSenha(senha);
+        enfermeiro.setCre(cre);
+        return enfermeiro;
+    }
+
+    private Farmaceutico createFarmaceutico(String nome, String login, String senha, String cfr) {
+        Farmaceutico farmaceutico = new Farmaceutico();
+        farmaceutico.setNomeSocial(nome);
+        farmaceutico.setLogin(login);
+        farmaceutico.setSenha(senha);
+        farmaceutico.setCfr(cfr);
+        return farmaceutico;
+    }
+
+    private void addToCache(Object user) {
+        ClasseDados dados = ClasseDados.getInstance();
+        if (user instanceof Usuario) dados.usuarios.add((Usuario) user);
+        else if (user instanceof Medico) dados.medicos.add((Medico) user);
+        else if (user instanceof Enfermeiro) dados.enfermeiros.add((Enfermeiro) user);
+        else if (user instanceof Farmaceutico) dados.farmaceuticos.add((Farmaceutico) user);
     }
 }

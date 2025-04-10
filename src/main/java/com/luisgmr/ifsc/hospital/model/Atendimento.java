@@ -13,36 +13,37 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "atendimento")
 public class Atendimento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	public long id;
 
-	private LocalDateTime dataHoraAtendimento;
-	private String pressao;
-	private String temperatura;
-	private String bpm;
-	private String oximetria;
-	private String historicoDeDoencas;
-	private String alergias;
-	private String medicacoesEmUso;
-	private String anamnese;
-	private String tipoAtendimento;
-	private String classificacao;
-	private String observacoes;
-	private String status;
+	public LocalDateTime dataHoraAtendimento;
+	public String pressao;
+	public String temperatura;
+	public String bpm;
+	public String oximetria;
+	public String historicoDeDoencas;
+	public String alergias;
+	public String medicacoesEmUso;
+	public String anamnese;
+	public String tipoAtendimento;
+	public String classificacao;
+	public String observacoes;
+	public String status;
 
 	@ManyToOne
 	@JoinColumn(name = "paciente_id")
-	private Paciente paciente;
+	public Paciente paciente;
 
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
+	public Usuario usuario;
 
 	@ManyToOne
 	@JoinColumn(name = "enfermeiro_id")
-	private Enfermeiro enfermeiro;
+	public Enfermeiro enfermeiro;
 
 }

@@ -5,36 +5,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_pessoa", length = 31)
+@Table(name = "pessoa")
 public class Pessoa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private String nome;
-	private String fone1;
-	private String fone2;
-	private String email;
-	private String cpfCnpj;
-	private String rgInscricaoEstadual;
-	private String dataCadastro;
-	private String endereco;
-	private String cep;
-	private String cidade;
-	private String uf;
-	private String bairro;
-	private String logradouro;
-	private String complemento;
+	public long id;
+	public String nome;
+	public String fone1;
+	public String fone2;
+	public String email;
+	public String cpfCnpj;
+	public String rgInscricaoEstadual;
+	public String dataCadastro;
+	public String endereco;
+	public String cep;
+	public String cidade;
+	public String uf;
+	public String bairro;
+	public String logradouro;
+	public String complemento;
 
 	@Override
 	public String toString() {

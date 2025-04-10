@@ -1,39 +1,26 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.OldExameDAO;
+import com.luisgmr.ifsc.hospital.dao.ExameDAO;
 import com.luisgmr.ifsc.hospital.model.Exame;
 import com.luisgmr.ifsc.hospital.model.ClasseDados;
-
 import java.util.List;
 
 public class ExameController {
 
-    private final OldExameDAO exameDAO;
+    private final ExameDAO exameDAO = new ExameDAO();
 
-    public ExameController() {
-        this.exameDAO = new OldExameDAO();
-    }
-
-    /**
-     * Salva um exame no banco de dados.
-     *
-     * @param exame Objeto contendo os dados do exame.
-     */
-    public void saveExame(Exame exame) {
+    public void save(Exame exame) {
         try {
-            exameDAO.saveExame(exame);
+            exameDAO.save(exame);
             System.out.println(exame.getTituloExame() + " foi salvo com sucesso!");
         } catch (Exception e) {
             System.err.println("Erro ao salvar o exame: " + e.getMessage());
         }
     }
 
-    /**
-     * Carrega todos os exames do banco de dados e atualiza o cache local.
-     */
-    public void loadExames() {
+    public void load() {
         try {
-            List<Exame> exames = exameDAO.getAllExames();
+            List<Exame> exames = exameDAO.getAll();
             ClasseDados dados = ClasseDados.getInstance();
             dados.exames.clear();
             dados.exames.addAll(exames);
@@ -43,12 +30,7 @@ public class ExameController {
         }
     }
 
-    /**
-     * Obtém a lista de exames do cache local.
-     *
-     * @return Lista de exames.
-     */
-    public List<Exame> getExames() {
+    public List<Exame> getAll() {
         return ClasseDados.getInstance().exames;
     }
 }

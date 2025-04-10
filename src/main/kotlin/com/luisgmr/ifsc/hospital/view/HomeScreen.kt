@@ -41,8 +41,8 @@ import java.util.*
 fun HomeScreen(navController: NavController) {
     val pessoasCategoryController = PessoasCategoryController()
     val examesController = ExameController()
-    pessoasCategoryController.loadPessoas(PessoaType.PACIENTE)
-    examesController.loadExames()
+    pessoasCategoryController.load(PessoaType.PACIENTE)
+    examesController.load()
 
     val currentDate = LocalDate.now()
     val weekDayFormat = DateTimeFormatter.ofPattern("EEEE, ", Locale("pt", "BR"))

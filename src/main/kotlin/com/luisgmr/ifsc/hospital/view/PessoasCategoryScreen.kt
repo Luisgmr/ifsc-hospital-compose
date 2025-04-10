@@ -47,7 +47,7 @@ fun PessoasCategoryScreen(
 
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadPessoas(pessoaType)
+        controller.load(pessoaType)
         pessoas.clear()
         pessoas.addAll(
             when (pessoaType) {

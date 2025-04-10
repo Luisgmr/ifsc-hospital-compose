@@ -46,9 +46,9 @@ fun AcompanhanteScreen(
     // Load acompanhantes when the screen starts
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadAcompanhantes()
+        controller.load()
         acompanhantes.clear()
-        acompanhantes.addAll(controller.getAcompanhantes())
+        acompanhantes.addAll(controller.all)
         isLoading = false
     }
 

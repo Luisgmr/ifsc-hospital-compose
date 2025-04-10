@@ -36,9 +36,9 @@ fun QuartoScreen(
 
     LaunchedEffect(Unit) {
         isLoading = true
-        controller.loadQuartos()
+        controller.load()
         quartos.clear()
-        quartos.addAll(controller.getQuartos())
+        quartos.addAll(controller.all)
         isLoading = false
     }
 

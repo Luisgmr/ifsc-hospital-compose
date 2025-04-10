@@ -2,10 +2,7 @@ package com.luisgmr.ifsc.hospital.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,14 +14,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Table(name = "receita")
 public class Receita {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    private LocalDateTime dataHoraReceita;
-    private String observacao;
-    private String status;
+    public long id;
+    public LocalDateTime dataHoraReceita;
+    public String observacao;
+    public String status;
        
 }

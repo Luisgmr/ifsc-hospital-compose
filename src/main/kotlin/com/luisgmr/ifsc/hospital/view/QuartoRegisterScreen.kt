@@ -33,8 +33,8 @@ fun QuartoRegisterScreen(
 
     var alasList by remember { mutableStateOf(emptyList<Ala>()) }
     LaunchedEffect(Unit) {
-        alaController.loadAlas()
-        alasList = alaController.getAlas()
+        alaController.load()
+        alasList = alaController.all
     }
 
     Scaffold(
@@ -127,7 +127,7 @@ fun QuartoRegisterScreen(
                             this.ala = selectedAla
                         }
                         try {
-                            quartoController.saveQuarto(quarto)
+                            quartoController.save(quarto)
                             message = "Quarto salvo com sucesso!"
                         } catch (e: Exception) {
                             isError = true

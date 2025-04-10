@@ -6,17 +6,45 @@
     <session-factory>
         <!-- Configurações do banco de dados -->
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/seu_banco</property>
-        <property name="hibernate.connection.username">seu_usuario</property>
-        <property name="hibernate.connection.password">sua_senha</property>
+        <property name="hibernate.connection.url">jdbc:mysql://100.104.103.66/hospital_compose</property>
+        <property name="hibernate.connection.username">goat</property>
+        <property name="hibernate.connection.password">Refacty_db5498!#</property>
 
         <!-- Configurações do Hibernate -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.dialect.storage_engine">innodb</property>
 
         <!-- Mapeamento das entidades -->
-        <mapping package="com.luisgmr.ifsc.hospital.model"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Pessoa"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Paciente"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Medico"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Enfermeiro"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Farmaceutico"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Ala"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Exame"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Quarto"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Acompanhante"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.AcompanhanteInternacao"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Atendimento"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.ClasseDados"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Consulta"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.ConsultaExame"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Fornecedor"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Internacao"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.InternacaoLeito"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Jornada"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Laboratorio"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.LaboratorioMedicamento"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Leito"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Lote"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Medicamento"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.MovimentoMedicamento"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Prontuario"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Receita"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.ReceitaMedicamento"/>
+        <mapping class="com.luisgmr.ifsc.hospital.model.Usuario"/>
     </session-factory>
 </hibernate-configuration>

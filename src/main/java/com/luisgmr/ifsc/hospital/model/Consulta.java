@@ -4,14 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,33 +16,33 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Table(name = "consulta")
 public class Consulta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	public long id;
 
-	private String responsavel;
-	private LocalDateTime dataHoraConsulta;
-	private String anamnese;
-	private String diagnostico;
-	private String prescricao;
-	private String observacao;
-	private String status;
+	public String responsavel;
+	public LocalDateTime dataHoraConsulta;
+	public String anamnese;
+	public String diagnostico;
+	public String prescricao;
+	public String observacao;
+	public String status;
 	@ManyToOne
 	@JoinColumn(name = "medico_id")
-	private Medico medico;
+	public Medico medico;
 
 	@ManyToOne
 	@JoinColumn(name = "atendimento_id")
-	private Atendimento atendimento;
+	public Atendimento atendimento;
 
 	@OneToOne
 	@JoinColumn(name = "receita_id")
-	private Receita receita;
+	public Receita receita;
 
 	@OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL)
-	private Internacao internacao;
+	public Internacao internacao;
 
 }

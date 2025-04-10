@@ -417,55 +417,120 @@ fun CadastroPessoaScreen(
                             PessoaType.PACIENTE -> {
                                 val parsedDate = parseDateFromRawInput(dataNascimento)
                                 if (parsedDate != null) {
-                                    val paciente = Paciente(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                        tipoSanguineo,
-                                        sexo,
-                                        nome,
-                                        parsedDate
-                                    )
-                                    controller.savePessoa(paciente)
+                                    val paciente = Paciente().apply {
+                                        this.nome = nome
+                                        this.fone1 = fone1
+                                        this.fone2 = fone2
+                                        this.email = email
+                                        this.cpfCnpj = cpf
+                                        this.rgInscricaoEstadual = rg
+                                        this.endereco = endereco
+                                        this.cep = cep
+                                        this.cidade = cidade
+                                        this.uf = uf
+                                        this.bairro = bairro
+                                        this.logradouro = logradouro
+                                        this.complemento = complemento
+
+                                        this.dataNascimento = parsedDate
+                                        this.tipoSanguineo = tipoSanguineo
+                                        this.sexo = sexo
+                                    }
+                                    controller.save(paciente)
                                     onBack()
                                 } else {
                                     JOptionPane.showMessageDialog(null, "Data invalida")
                                 }
                             }
                             PessoaType.MEDICO -> {
-                                val medico = Medico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    crm,
-                                    senha,
-                                    login,
-                                    nome
-                                )
-                                controller.savePessoa(medico)
+                                val medico = Medico().apply {
+                                    this.nome = nome
+                                    this.fone1 = fone1
+                                    this.fone2 = fone2
+                                    this.email = email
+                                    this.cpfCnpj = cpf
+                                    this.rgInscricaoEstadual = rg
+                                    this.endereco = endereco
+                                    this.cep = cep
+                                    this.cidade = cidade
+                                    this.uf = uf
+                                    this.bairro = bairro
+                                    this.logradouro = logradouro
+                                    this.complemento = complemento
+
+                                    this.crm = crm
+                                    this.senha = senha
+                                    this.login = login
+                                }
+                                controller.save(medico)
                                 onBack()
                             }
                             PessoaType.ENFERMEIRO -> {
-                                val enfermeiro = Enfermeiro(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    cre,
-                                    senha,
-                                    login,
-                                    nome
-                                )
-                                controller.savePessoa(enfermeiro)
+                                val enfermeiro = Enfermeiro().apply {
+                                    this.nome = nome
+                                    this.fone1 = fone1
+                                    this.fone2 = fone2
+                                    this.email = email
+                                    this.cpfCnpj = cpf
+                                    this.rgInscricaoEstadual = rg
+                                    this.endereco = endereco
+                                    this.cep = cep
+                                    this.cidade = cidade
+                                    this.uf = uf
+                                    this.bairro = bairro
+                                    this.logradouro = logradouro
+                                    this.complemento = complemento
+
+                                    this.cre = cre
+                                    this.senha = senha
+                                    this.login = login
+                                }
+                                controller.save(enfermeiro)
                                 onBack()
                             }
                             PessoaType.FARMACEUTICO -> {
-                                val farmaceutico = Farmaceutico(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    cfr,
-                                    senha,
-                                    login,
-                                    nome
-                                )
-                                controller.savePessoa(farmaceutico)
+                                val farmaceutico = Farmaceutico().apply {
+                                    this.nome = nome
+                                    this.fone1 = fone1
+                                    this.fone2 = fone2
+                                    this.email = email
+                                    this.cpfCnpj = cpf
+                                    this.rgInscricaoEstadual = rg
+                                    this.endereco = endereco
+                                    this.cep = cep
+                                    this.cidade = cidade
+                                    this.uf = uf
+                                    this.bairro = bairro
+                                    this.logradouro = logradouro
+                                    this.complemento = complemento
+
+                                    this.cfr = cre
+                                    this.senha = senha
+                                    this.login = login
+                                }
+                                controller.save(farmaceutico)
                                 onBack()
                             }
                             PessoaType.USUARIO -> {
-                                val usuario = Usuario(nome, fone1, fone2, email, cpf, rg, LocalDate.now().toString(), endereco, cep, cidade, uf, bairro, logradouro, complemento,
-                                    login,
-                                    senha,
-                                    nome
-                                )
-                                controller.savePessoa(usuario)
+                                val usuario = Usuario().apply {
+                                    this.nome = nome
+                                    this.fone1 = fone1
+                                    this.fone2 = fone2
+                                    this.email = email
+                                    this.cpfCnpj = cpf
+                                    this.rgInscricaoEstadual = rg
+                                    this.endereco = endereco
+                                    this.cep = cep
+                                    this.cidade = cidade
+                                    this.uf = uf
+                                    this.bairro = bairro
+                                    this.logradouro = logradouro
+                                    this.complemento = complemento
+
+                                    this.login = login
+                                    this.senha = senha
+                                }
+                                controller.save(usuario)
                                 onBack()
                             }
                         }
