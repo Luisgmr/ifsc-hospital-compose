@@ -2,54 +2,29 @@ package com.luisgmr.ifsc.hospital.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 
 public class Receita {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private LocalDateTime dataHoraReceita;
     private String observacao;
     private String status;
-    
-    public Receita(){
-        
-    }
-
-    public Receita(long id, LocalDateTime dataHoraReceita, String observacao, String status) {
-        this.id = id;
-        this.dataHoraReceita = dataHoraReceita;
-        this.observacao = observacao;
-        this.status = status;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public LocalDateTime getDataHoraReceita() {
-        return dataHoraReceita;
-    }
-
-    public void setDataHoraReceita(LocalDateTime dataHoraReceita) {
-        this.dataHoraReceita = dataHoraReceita;
-    }
-
-    public String getObservacao() {
-        return observacao;
-    }
-
-    public void setObservacao(String observacao) {
-        this.observacao = observacao;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
        
 }

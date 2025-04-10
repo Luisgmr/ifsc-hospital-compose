@@ -1,86 +1,43 @@
 package com.luisgmr.ifsc.hospital.model;
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+
 public class InternacaoLeito {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
 	private LocalDateTime dataHoraAlocacao;
 	private LocalDateTime dataHoraDesocupacao;
 	private String status;
+	@ManyToOne
+	@JoinColumn(name = "internacao_id")
 	private Internacao internacao;
+
+	@ManyToOne
+	@JoinColumn(name = "leito_id")
 	private Leito leito;
+
+	@ManyToOne
+	@JoinColumn(name = "acompanhante_id")
 	private Acompanhante acompanhante;
-	
-	public InternacaoLeito(long id, LocalDateTime dataHoraAlocacao, LocalDateTime dataHoraDesocupacao,
-			String status, Internacao internacao, Leito leito, Acompanhante acompanhante) {
-		super();
-		this.id = id;
-		this.dataHoraAlocacao = dataHoraAlocacao;
-		this.dataHoraDesocupacao = dataHoraDesocupacao;
-		this.status = status;
-		this.internacao = internacao;
-		this.leito = leito;
-		this.acompanhante = acompanhante;
-	}
-	
-	public InternacaoLeito() {
-		super();
-	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public LocalDateTime getDataHoraAlocacao() {
-		return dataHoraAlocacao;
-	}
-
-	public void setDataHoraAlocacao(LocalDateTime dataHoraAlocacao) {
-		this.dataHoraAlocacao = dataHoraAlocacao;
-	}
-
-	public LocalDateTime getDataHoraDesocupacao() {
-		return dataHoraDesocupacao;
-	}
-
-	public void setDataHoraDesocupacao(LocalDateTime dataHoraDesocupacao) {
-		this.dataHoraDesocupacao = dataHoraDesocupacao;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Internacao getInternacao() {
-		return internacao;
-	}
-
-	public void setInternacao(Internacao internacao) {
-		this.internacao = internacao;
-	}
-
-	public Leito getLeito() {
-		return leito;
-	}
-
-	public void setLeito(Leito leito) {
-		this.leito = leito;
-	}
-
-	public Acompanhante getAcompanhante() {
-		return acompanhante;
-	}
-
-	public void setAcompanhante(Acompanhante acompanhante) {
-		this.acompanhante = acompanhante;
-	}
-	
 }
