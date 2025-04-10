@@ -2,6 +2,7 @@ package com.luisgmr.ifsc.hospital.utils;
 
 import com.luisgmr.ifsc.hospital.config.HibernateConfig;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.io.Serializable;
@@ -9,6 +10,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class HibernateUtil {
+    public static SessionFactory getSessionFactory() {
+        return HibernateConfig.getSessionFactory();
+    }
     public static void executeInTransaction(Consumer<Session> action) {
         Transaction transaction = null;
         try (Session session = HibernateConfig.getSessionFactory().openSession()) {

@@ -15,6 +15,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import com.luisgmr.ifsc.hospital.components.ConnectDatabaseButton
 import com.luisgmr.ifsc.hospital.components.HospitalNavigationRailItem
+import com.luisgmr.ifsc.hospital.config.HibernateConfig
 import com.luisgmr.ifsc.hospital.controller.AcompanhanteController
 import com.luisgmr.ifsc.hospital.controller.AlaController
 import com.luisgmr.ifsc.hospital.controller.ExameController
@@ -45,6 +46,7 @@ enum class Screen {
 
 @Composable
 fun App() {
+    HibernateConfig.getSessionFactory()
     val screens = Screen.values().toList()
     val navController by rememberNavController(Screen.HOME)
     val currentScreen by remember { navController.currentScreen }
