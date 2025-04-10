@@ -1,6 +1,6 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.LaboratorioDAO;
+import com.luisgmr.ifsc.hospital.dao.OldLaboratorioDAO;
 import com.luisgmr.ifsc.hospital.model.ClasseDados;
 import com.luisgmr.ifsc.hospital.model.Laboratorio;
 
@@ -8,10 +8,10 @@ import java.util.List;
 
 public class LaboratorioController {
 
-    private final LaboratorioDAO laboratorioDAO;
+    private final OldLaboratorioDAO laboratorioDAO;
 
     public LaboratorioController() {
-        this.laboratorioDAO = new LaboratorioDAO();
+        this.laboratorioDAO = new OldLaboratorioDAO();
     }
 
     /**

@@ -1,18 +1,16 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.PessoasCategoryDAO;
+import com.luisgmr.ifsc.hospital.dao.OldPessoasCategoryDAO;
 import com.luisgmr.ifsc.hospital.enums.PessoaType;
 import com.luisgmr.ifsc.hospital.model.*;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PessoasCategoryController {
-    private final PessoasCategoryDAO dao;
+    private final OldPessoasCategoryDAO dao;
 
     public PessoasCategoryController() {
-        this.dao = new PessoasCategoryDAO();
+        this.dao = new OldPessoasCategoryDAO();
     }
 
     public void loadPessoas(PessoaType type) {

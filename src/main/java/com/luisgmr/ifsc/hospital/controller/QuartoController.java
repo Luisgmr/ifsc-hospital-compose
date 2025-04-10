@@ -1,14 +1,14 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.QuartoDAO;
+import com.luisgmr.ifsc.hospital.dao.OldQuartoDAO;
 import com.luisgmr.ifsc.hospital.model.Quarto;
 import com.luisgmr.ifsc.hospital.model.ClasseDados;
 
 public class QuartoController {
-    private final QuartoDAO quartoDAO;
+    private final OldQuartoDAO quartoDAO;
 
     public QuartoController() {
-        this.quartoDAO = new QuartoDAO();
+        this.quartoDAO = new OldQuartoDAO();
     }
 
     public void saveQuarto(Quarto quarto) {

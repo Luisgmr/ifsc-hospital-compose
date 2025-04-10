@@ -1,6 +1,6 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.AcompanhanteDAO;
+import com.luisgmr.ifsc.hospital.dao.OldAcompanhanteDAO;
 import com.luisgmr.ifsc.hospital.model.Acompanhante;
 import com.luisgmr.ifsc.hospital.model.ClasseDados;
 
@@ -8,10 +8,10 @@ import java.util.List;
 
 public class AcompanhanteController {
 
-    private final AcompanhanteDAO acompanhanteDAO;
+    private final OldAcompanhanteDAO oldAcompanhanteDAO;
 
     public AcompanhanteController() {
-        this.acompanhanteDAO = new AcompanhanteDAO();
+        this.oldAcompanhanteDAO = new OldAcompanhanteDAO();
     }
 
     /**
@@ -21,7 +21,7 @@ public class AcompanhanteController {
      */
     public void saveAcompanhante(Acompanhante acompanhante) {
         try {
-            acompanhanteDAO.saveAcompanhante(acompanhante);
+            oldAcompanhanteDAO.saveAcompanhante(acompanhante);
             System.out.println(acompanhante.getNome() + " foi salvo com sucesso!");
         } catch (Exception e) {
             System.err.println("Erro ao salvar o acompanhante: " + e.getMessage());
@@ -33,7 +33,7 @@ public class AcompanhanteController {
      */
     public void loadAcompanhantes() {
         try {
-            List<Acompanhante> acompanhantes = acompanhanteDAO.getAllAcompanhantes();
+            List<Acompanhante> acompanhantes = oldAcompanhanteDAO.getAllAcompanhantes();
             ClasseDados dados = ClasseDados.getInstance();
             dados.acompanhantes.clear();
             dados.acompanhantes.addAll(acompanhantes);

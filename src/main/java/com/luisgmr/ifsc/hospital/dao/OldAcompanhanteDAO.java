@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcompanhanteDAO {
+public class OldAcompanhanteDAO {
 
     private final ConnectionFactory connectionFactory;
 
-    public AcompanhanteDAO() {
+    public OldAcompanhanteDAO() {
         this.connectionFactory = new ConnectionFactory();
     }
 

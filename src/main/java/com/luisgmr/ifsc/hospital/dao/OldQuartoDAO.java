@@ -8,13 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.luisgmr.ifsc.hospital.database.ConnectionFactory;
 import com.luisgmr.ifsc.hospital.model.Quarto;
 
-public class QuartoDAO {
+public class OldQuartoDAO {
     private final ConnectionFactory connectionFactory;
 
-    public QuartoDAO() {
+    public OldQuartoDAO() {
         this.connectionFactory = new ConnectionFactory();
     }
 

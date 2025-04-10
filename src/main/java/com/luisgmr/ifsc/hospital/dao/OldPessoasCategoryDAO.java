@@ -10,15 +10,10 @@ import java.util.List;
 import com.luisgmr.ifsc.hospital.model.*;
 import com.luisgmr.ifsc.hospital.enums.PessoaType;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-public class PessoasCategoryDAO {
+public class OldPessoasCategoryDAO {
     private final ConnectionFactory connectionFactory;
 
-    public PessoasCategoryDAO() {
+    public OldPessoasCategoryDAO() {
         this.connectionFactory = new ConnectionFactory();
     }
 

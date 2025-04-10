@@ -3,11 +3,11 @@ package com.luisgmr.ifsc.hospital.dao;
 import com.luisgmr.ifsc.hospital.database.ConnectionFactory;
 import com.luisgmr.ifsc.hospital.model.*;
 
-public class RegisterUserDAO {
+public class OldRegisterUserDAO {
 
     private final ConnectionFactory connectionFactory;
 
-    public RegisterUserDAO() {
+    public OldRegisterUserDAO() {
         this.connectionFactory = new ConnectionFactory();
     }
 

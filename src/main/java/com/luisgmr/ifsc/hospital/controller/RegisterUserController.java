@@ -1,15 +1,15 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.RegisterUserDAO;
+import com.luisgmr.ifsc.hospital.dao.OldRegisterUserDAO;
 import com.luisgmr.ifsc.hospital.enums.UserType;
 import com.luisgmr.ifsc.hospital.model.*;
 
 public class RegisterUserController {
 
-    private final RegisterUserDAO registerUserDAO;
+    private final OldRegisterUserDAO oldRegisterUserDAO;
 
     public RegisterUserController() {
-        this.registerUserDAO = new RegisterUserDAO();
+        this.oldRegisterUserDAO = new OldRegisterUserDAO();
     }
 
     public boolean registerUser(
@@ -56,7 +56,7 @@ public class RegisterUserController {
                 throw new IllegalArgumentException("Tipo de usuário inválido");
         }
 
-        if (registerUserDAO.registerUser(user)) {
+        if (oldRegisterUserDAO.registerUser(user)) {
             addUserToClasseDados(user);
             System.out.println("Usuário registrado com sucesso!");
             return true;

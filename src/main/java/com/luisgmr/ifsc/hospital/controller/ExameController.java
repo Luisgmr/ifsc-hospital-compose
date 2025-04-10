@@ -1,6 +1,6 @@
 package com.luisgmr.ifsc.hospital.controller;
 
-import com.luisgmr.ifsc.hospital.dao.ExameDAO;
+import com.luisgmr.ifsc.hospital.dao.OldExameDAO;
 import com.luisgmr.ifsc.hospital.model.Exame;
 import com.luisgmr.ifsc.hospital.model.ClasseDados;
 
@@ -8,10 +8,10 @@ import java.util.List;
 
 public class ExameController {
 
-    private final ExameDAO exameDAO;
+    private final OldExameDAO exameDAO;
 
     public ExameController() {
-        this.exameDAO = new ExameDAO();
+        this.exameDAO = new OldExameDAO();
     }
 
     /**

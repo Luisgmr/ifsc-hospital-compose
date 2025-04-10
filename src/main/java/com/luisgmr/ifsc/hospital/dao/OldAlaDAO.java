@@ -8,10 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlaDAO {
+public class OldAlaDAO {
     private final ConnectionFactory connectionFactory;
 
-    public AlaDAO() {
+    public OldAlaDAO() {
         this.connectionFactory = new ConnectionFactory();
     }
 
